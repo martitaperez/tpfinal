@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Admin Demo",
+      "email": "admin@studio.com",
+      "password": "admin123",
+      "role": "admin",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    }
+  ],
+  "artists": [
+    {
+      "id": 1,
+      "name": "Ana",
+      "styles": ["realismo","blackwork"],
+      "rating": 4.8,
+      "photo": "",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    }
+  ],
+  "turnos": []
+}
