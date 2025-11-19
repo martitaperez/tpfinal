@@ -1,25 +1,180 @@
 {
   "users": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Admin Demo",
       "email": "admin@studio.com",
       "password": "admin123",
       "role": "admin",
       "createdAt": "2025-01-01T00:00:00.000Z",
       "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "Tatuador Demo",
+      "email": "artist@studio.com",
+      "password": "artist123",
+      "role": "artist",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
     }
   ],
   "artists": [
     {
-      "id": 1,
+      "id": "1",
       "name": "Ana",
-      "styles": ["realismo","blackwork"],
+      "styles": [
+        "realismo",
+        "blackwork"
+      ],
+      "rating": 4.8,
+      "photo": "",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "2",
+      "name": "Rodri",
+      "styles": [
+        "blackwork",
+        "acuarela"
+      ],
       "rating": 4.8,
       "photo": "",
       "createdAt": "2025-01-01T00:00:00.000Z",
       "updatedAt": "2025-01-01T00:00:00.000Z"
     }
   ],
-  "turnos": []
+  "turnos": [
+    {
+      "id": 1763584396614,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-20",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-19T20:33:16.614Z"
+    },
+    {
+      "id": 1763584401029,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-20",
+      "startTime": "12:30",
+      "endTime": "14:00",
+      "status": "pending",
+      "createdAt": "2025-11-19T20:33:21.029Z"
+    },
+    {
+      "id": 1763584428342,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-18",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-19T20:33:48.342Z"
+    },
+    {
+      "id": 1763584430236,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-18",
+      "startTime": "09:30",
+      "endTime": "11:00",
+      "status": "pending",
+      "createdAt": "2025-11-19T20:33:50.236Z"
+    },
+    {
+      "id": 1763584442893,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-13",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-19T20:34:02.893Z"
+    },
+    {
+      "id": 1763584660652,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-22",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-19T20:37:40.652Z"
+    },
+    {
+      "id": 1763584817331,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-17",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-19T20:40:17.331Z"
+    },
+    {
+      "id": 1763586277830,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-20",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-19T21:04:37.830Z"
+    },
+    {
+      "id": 1763586280070,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-20",
+      "startTime": "09:30",
+      "endTime": "11:00",
+      "status": "pending",
+      "createdAt": "2025-11-19T21:04:40.070Z"
+    },
+    {
+      "id": 1763586282036,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-20",
+      "startTime": "11:00",
+      "endTime": "12:30",
+      "status": "pending",
+      "createdAt": "2025-11-19T21:04:42.036Z"
+    },
+    {
+      "id": 1763586283892,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-20",
+      "startTime": "12:30",
+      "endTime": "14:00",
+      "status": "pending",
+      "createdAt": "2025-11-19T21:04:43.892Z"
+    },
+    {
+      "id": 1763586285419,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-20",
+      "startTime": "14:00",
+      "endTime": "15:30",
+      "status": "pending",
+      "createdAt": "2025-11-19T21:04:45.419Z"
+    },
+    {
+      "id": 1763588639797,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-20",
+      "startTime": "15:30",
+      "endTime": "17:00",
+      "status": "pending",
+      "createdAt": "2025-11-19T21:43:59.797Z"
+    }
+  ]
 }

@@ -1,3 +1,29 @@
 <h2>Gestión de Turnos</h2>
 <p>Aquí se mostrarán los turnos disponibles / reservados.</p>
 
+<h2>Seleccioná un tatuador</h2>
+<div *ngFor="let artist of artists" 
+     class="artist-card" 
+     [class.selected]="artistSeleccionado?.id === artist.id">
+  <button (click)="seleccionarTatuador(artist)">
+    {{ artist.name }}
+  </button>
+  <p>Estilos: {{ artist.styles.join(', ') }}</p>
+</div>
+
+
+<h2>Seleccioná una fecha</h2>
+<input type="date" (change)="seleccionarFecha($event)">
+
+<h2>Horarios disponibles</h2>
+<div *ngIf="horarios.length > 0; else sinHorarios">
+  <button *ngFor="let horario of horarios"
+          [disabled]="horariosOcupados.includes(horario.start)"
+          (click)="reservarTurno(horario)">
+    {{ horario.start }} - {{ horario.end }}
+  </button>
+</div>
+
+<ng-template #sinHorarios>
+  <p>Seleccioná un tatuador y una fecha para ver los horarios</p>
+</ng-template>

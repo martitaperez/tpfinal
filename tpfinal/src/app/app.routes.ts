@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+
 export const routes: Routes = [
   {
     path: '',
@@ -29,7 +30,7 @@ export const routes: Routes = [
   {
     path: 'turnos',
     loadComponent: () =>
-      import('./pages/turnos/turnos').then((m) => m.TurnosComponent),
+      import('./pages/turnos/turnos').then((m)=>m.TurnosComponent),
   },
   {
     path: 'admin',

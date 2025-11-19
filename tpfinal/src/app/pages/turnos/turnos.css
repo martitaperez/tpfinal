@@ -1,0 +1,30 @@
+.artist-card {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  transition: all 0.3s;
+}
+
+.artist-card.selected {
+  border-color: #007bff;
+  background-color: #e0f0ff;
+}
+
+.artist-card button {
+  margin-bottom: 5px;
+}
+
+button {
+  cursor: pointer;
+  padding: 5px 10px;
+  border-radius: 4px;
+  border: none;
+  background-color: #007bff;
+  color: white;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
