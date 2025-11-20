@@ -13,7 +13,11 @@
 
 
 <h2>Seleccioná una fecha</h2>
-<input type="date" (change)="seleccionarFecha($event)">
+<input 
+  type="date" 
+  (change)="seleccionarFecha($event)" 
+  [min]="hoy"> 
+
 
 <h2>Horarios disponibles</h2>
 <div *ngIf="horarios.length > 0; else sinHorarios">

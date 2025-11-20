@@ -1,3 +1,30 @@
 <h2>Panel de Administración</h2>
 <p>Aquí el administrador verá estadísticas, turnos y personal.</p>
 
+
+
+<div *ngIf="loading">Cargando datos...</div>
+
+<table *ngIf="!loading">
+  <tr>
+    <th>ID</th>
+    <th>Tatuador</th>
+    <th>Fecha</th>
+    <th>Horario</th>
+    <th>Cliente</th>
+    <th>Estado</th>
+    <th>Acciones</th>
+  </tr>
+
+  <tr *ngFor="let r of reservas">
+    <td>{{ r.id }}</td>
+    <td>{{ getArtistName(r.artistId) }}</td>
+    <td>{{ r.date }}</td>
+    <td>{{ r.startTime }} - {{ r.endTime }}</td>
+    <td>{{ r.clientId }}</td>
+    <td>{{ r.status }}</td>
+    <td>
+      <button class="delete-btn" (click)="borrarTurno(r.id)">Eliminar</button>
+    </td>
+  </tr>
+</table>
