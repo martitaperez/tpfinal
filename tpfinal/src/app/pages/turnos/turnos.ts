@@ -82,7 +82,7 @@ export class TurnosComponent implements OnInit {
 
         const reservasDelDia = this.reservas.filter(r => {
           const fechaReserva = r.date.split('T')[0];
-          return r.artistId === this.artistSeleccionado!.id.toString() &&
+          return r.artistId === this.artistSeleccionado!.id &&
                  fechaReserva === this.fechaSeleccionada;
         });
 
@@ -145,9 +145,9 @@ export class TurnosComponent implements OnInit {
     }
 
     const nuevaReserva: Reserva = {
-      id: Date.now().toString(),
-      artistId: this.artistSeleccionado.id.toString(),
-      clientId: "1",
+      id: Date.now(),
+      artistId: this.artistSeleccionado.id,
+      clientId: 1,
       date: this.fechaSeleccionada,
       startTime: horario.start,
       endTime: horario.end,
@@ -172,7 +172,7 @@ export class TurnosComponent implements OnInit {
 
     const reserva = this.reservas.find(r => {
       const fechaReserva = r.date.split('T')[0];
-      return r.artistId === this.artistSeleccionado!.id.toString() &&
+      return r.artistId === this.artistSeleccionado!.id &&
              fechaReserva === this.fechaSeleccionada &&
              this.horaIgual(r.startTime, horario.start);
     });
@@ -182,7 +182,7 @@ export class TurnosComponent implements OnInit {
       return;
     }
 
-    this.turnosService.eliminarReserva(reserva.id).subscribe({
+    this.turnosService.eliminarReserva(reserva.id.toString()).subscribe({
       next: () => {
         alert("Turno cancelado correctamente.");
         this.cargarReservas();

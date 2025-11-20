@@ -1,7 +1,7 @@
 {
   "users": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Admin Demo",
       "email": "admin@studio.com",
       "password": "admin123",
@@ -10,7 +10,7 @@
       "updatedAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Tatuador Demo",
       "email": "artist@studio.com",
       "password": "artist123",
@@ -19,7 +19,7 @@
       "updatedAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "3",
+      "id": 3,
       "name": "Carla",
       "apellido": "Duarte",
       "email": "carla@example.com",
@@ -32,7 +32,7 @@
   ],
   "artists": [
     {
-      "id": "1",
+      "id": 1,
       "name": "Ana",
       "styles": [
         "realismo",
@@ -44,7 +44,7 @@
       "updatedAt": "2025-01-01T00:00:00.000Z"
     },
     {
-      "id": "2",
+      "id": 2,
       "name": "Rodri",
       "styles": [
         "blackwork",
@@ -58,8 +58,8 @@
   ],
   "turnos": [
     {
-      "id": "1763584817331",
-      "artistId": "1",
+      "id": 1763584817331,
+      "artistId": 1,
       "clientId": 1,
       "date": "2025-11-17",
       "startTime": "08:00",
@@ -68,8 +68,8 @@
       "createdAt": "2025-11-19T20:40:17.331Z"
     },
     {
-      "id": "1763586277830",
-      "artistId": "2",
+      "id": 1763586277830,
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-20",
       "startTime": "08:00",
@@ -78,8 +78,8 @@
       "createdAt": "2025-11-19T21:04:37.830Z"
     },
     {
-      "id": "1763586280070",
-      "artistId": "2",
+      "id": 1763586280070,
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-20",
       "startTime": "09:30",
@@ -88,8 +88,8 @@
       "createdAt": "2025-11-19T21:04:40.070Z"
     },
     {
-      "id": "1763586283892",
-      "artistId": "2",
+      "id": 1763586283892,
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-20",
       "startTime": "12:30",
@@ -98,8 +98,8 @@
       "createdAt": "2025-11-19T21:04:43.892Z"
     },
     {
-      "id": "1763586285419",
-      "artistId": "2",
+      "id": 1763586285419,
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-20",
       "startTime": "14:00",
@@ -108,8 +108,8 @@
       "createdAt": "2025-11-19T21:04:45.419Z"
     },
     {
-      "id": "1763645635911",
-      "artistId": "1",
+      "id": 1763645635911,
+      "artistId": 1,
       "clientId": 1,
       "date": "2025-11-17",
       "startTime": "09:30",
@@ -118,8 +118,8 @@
       "createdAt": "2025-11-20T13:33:55.911Z"
     },
     {
-      "id": "1763645989751",
-      "artistId": "1",
+      "id": 1763645989751,
+      "artistId": 1,
       "clientId": 1,
       "date": "2025-11-20",
       "startTime": "14:00",
@@ -129,7 +129,7 @@
     },
     {
       "id": 1763664904619,
-      "artistId": "2",
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-21",
       "startTime": "08:00",
@@ -139,7 +139,7 @@
     },
     {
       "id": 1763664907750,
-      "artistId": "2",
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-21",
       "startTime": "09:30",
@@ -149,7 +149,7 @@
     },
     {
       "id": 1763665066820,
-      "artistId": "2",
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-21",
       "startTime": "11:00",
@@ -159,7 +159,7 @@
     },
     {
       "id": 1763665082622,
-      "artistId": "1",
+      "artistId": 1,
       "clientId": 1,
       "date": "2025-11-22",
       "startTime": "08:00",
@@ -169,7 +169,7 @@
     },
     {
       "id": 1763665216329,
-      "artistId": "2",
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-27",
       "startTime": "08:00",
@@ -179,7 +179,7 @@
     },
     {
       "id": 1763665372801,
-      "artistId": "1",
+      "artistId": 1,
       "clientId": 1,
       "date": "2025-12-01",
       "startTime": "08:00",
@@ -189,7 +189,7 @@
     },
     {
       "id": 1763665384145,
-      "artistId": "2",
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-12-01",
       "startTime": "08:00",
@@ -199,7 +199,7 @@
     },
     {
       "id": 1763665394234,
-      "artistId": "1",
+      "artistId": 1,
       "clientId": 1,
       "date": "2026-01-01",
       "startTime": "08:00",
@@ -209,7 +209,7 @@
     },
     {
       "id": 1763665542770,
-      "artistId": "2",
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-27",
       "startTime": "09:30",
@@ -219,7 +219,7 @@
     },
     {
       "id": 1763667740579,
-      "artistId": "2",
+      "artistId": 2,
       "clientId": 1,
       "date": "2025-11-26",
       "startTime": "08:00",
@@ -229,7 +229,7 @@
     },
     {
       "id": 1763668007191,
-      "artistId": "1",
+      "artistId": 1,
       "clientId": 1,
       "date": "2025-11-27",
       "startTime": "08:00",

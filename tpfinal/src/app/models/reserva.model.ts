@@ -1,7 +1,7 @@
 export interface Reserva {
-  id: string;
-  clientId: string;
-  artistId: string;
+  id: number;
+  clientId: number;
+  artistId: number;
   date: string;        
   startTime: string;   // '14:00'
   endTime: string;     // '15:30'
