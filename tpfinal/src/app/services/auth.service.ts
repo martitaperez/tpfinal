@@ -9,7 +9,7 @@ export class AuthService {
   constructor() {
     // TEMPORAL — solo para probar sin login real
     this.currentUser = {
-      id: 1,
+      id: 10,
       name: "Rodrigo",
       apellido: "Dantas",
       email: "admin@test.com",

@@ -2,22 +2,25 @@ import { Component } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgIf } from '@angular/common';
+import { UserStateService } from './services/user-state.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, HttpClientModule, RouterLink, NgIf],
   template: `
+    
+
     <nav>
-      <a routerLink="/home">Home</a>
+      <a routerLink="/home">Inicio</a>
 
       @if (!user) {
-        <a routerLink="/login">Login</a>
-        <a routerLink="/register">Register</a>
+        <a routerLink="/login">Ingresar</a>
+        <a routerLink="/register">Registrarme</a>
       }
 
       @if (user) {
-        <a routerLink="/perfil">Mi Perfil</a>
+        <a routerLink="/perfil">Perfil</a>
 
         @if (user.role === 'admin') {
           <a routerLink="/admin">Admin</a>
@@ -54,11 +57,20 @@ import { NgIf } from '@angular/common';
 export class App {
   user: any = null;
 
-  constructor() {
-    const saved = localStorage.getItem('user');
-    if (saved) {
-      this.user = JSON.parse(saved);
+  constructor(private userState: UserStateService) {
+  this.loadUser();
+
+  
+  this.userState.user$.subscribe(u => {
+    if (u) {
+      this.user = u;
     }
+  });
+}
+
+  loadUser() {
+    const saved = localStorage.getItem('user');
+    this.user = saved ? JSON.parse(saved) : null;
   }
 
   logout() {
