@@ -1,0 +1,45 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
+import { Reserva } from '../models/reserva.model';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class TurnosService {
+
+  private url = 'http://localhost:3001/turnos';
+
+  constructor(private http: HttpClient) {}
+
+  // Obtener todas las reservas
+  getAll(): Observable<Reserva[]> {
+    return this.http.get<Reserva[]>(this.url).pipe(
+      catchError(err => {
+        console.error("❌ Error al obtener turnos:", err);
+        return throwError(() => new Error("Error en GET turnos"));
+      })
+    );
+  }
+
+  // Crear nueva reserva
+  crearReserva(reserva: Reserva): Observable<any> {
+    return this.http.post(this.url, reserva).pipe(
+      catchError(err => {
+        console.error("❌ Error al crear reserva:", err);
+        return throwError(() => new Error("Error en POST reserva"));
+      })
+    );
+  }
+
+  // Eliminar reserva por ID
+  eliminarReserva(id: string): Observable<any> {
+    return this.http.delete(`${this.url}/${id}`).pipe(
+      catchError(err => {
+        console.error("❌ Error al eliminar reserva:", err);
+        return throwError(() => new Error("Error en DELETE reserva"));
+      })
+    );
+  }
+}

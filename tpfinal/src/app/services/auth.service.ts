@@ -7,7 +7,7 @@ export class AuthService {
   private currentUser: User | null = null;
 
   constructor() {
-    // TEMPORAL — solo para que vos puedas probar todo sin login
+    // TEMPORAL — solo para probar sin login real
     this.currentUser = {
       id: 1,
       name: "Rodrigo",
@@ -34,11 +34,21 @@ export class AuthService {
     return this.currentUser?.role === 'client';
   }
 
-  login(user: User) {
+  login(user: User): boolean {
+    if (!user || !user.role) {
+      console.error("Login fallido: datos inválidos del usuario");
+      return false;
+    }
     this.currentUser = user;
+    return true;
   }
 
-  logout() {
+  logout(): boolean {
+    if (!this.currentUser) {
+      console.warn("Logout fallido: no hay usuario logueado");
+      return false;
+    }
     this.currentUser = null;
+    return true;
   }
 }

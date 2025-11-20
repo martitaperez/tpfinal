@@ -47,36 +47,6 @@
   ],
   "turnos": [
     {
-      "id": "1763584428342",
-      "artistId": "1",
-      "clientId": 1,
-      "date": "2025-11-18",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-19T20:33:48.342Z"
-    },
-    {
-      "id": "1763584430236",
-      "artistId": "1",
-      "clientId": 1,
-      "date": "2025-11-18",
-      "startTime": "09:30",
-      "endTime": "11:00",
-      "status": "pending",
-      "createdAt": "2025-11-19T20:33:50.236Z"
-    },
-    {
-      "id": "1763584442893",
-      "artistId": "1",
-      "clientId": 1,
-      "date": "2025-11-13",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-19T20:34:02.893Z"
-    },
-    {
       "id": "1763584817331",
       "artistId": "1",
       "clientId": 1,
@@ -127,7 +97,7 @@
       "createdAt": "2025-11-19T21:04:45.419Z"
     },
     {
-      "id": 1763645635911,
+      "id": "1763645635911",
       "artistId": "1",
       "clientId": 1,
       "date": "2025-11-17",
@@ -137,7 +107,7 @@
       "createdAt": "2025-11-20T13:33:55.911Z"
     },
     {
-      "id": 1763645989751,
+      "id": "1763645989751",
       "artistId": "1",
       "clientId": 1,
       "date": "2025-11-20",
@@ -145,6 +115,116 @@
       "endTime": "15:30",
       "status": "pending",
       "createdAt": "2025-11-20T13:39:49.751Z"
+    },
+    {
+      "id": 1763664904619,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-21",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T18:55:04.619Z"
+    },
+    {
+      "id": 1763664907750,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-21",
+      "startTime": "09:30",
+      "endTime": "11:00",
+      "status": "pending",
+      "createdAt": "2025-11-20T18:55:07.750Z"
+    },
+    {
+      "id": 1763665066820,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-21",
+      "startTime": "11:00",
+      "endTime": "12:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T18:57:46.820Z"
+    },
+    {
+      "id": 1763665082622,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-22",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T18:58:02.622Z"
+    },
+    {
+      "id": 1763665216329,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-27",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T19:00:16.329Z"
+    },
+    {
+      "id": 1763665372801,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-12-01",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T19:02:52.801Z"
+    },
+    {
+      "id": 1763665384145,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-12-01",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T19:03:04.145Z"
+    },
+    {
+      "id": 1763665394234,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2026-01-01",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T19:03:14.234Z"
+    },
+    {
+      "id": 1763665542770,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-27",
+      "startTime": "09:30",
+      "endTime": "11:00",
+      "status": "pending",
+      "createdAt": "2025-11-20T19:05:42.770Z"
+    },
+    {
+      "id": 1763667740579,
+      "artistId": "2",
+      "clientId": 1,
+      "date": "2025-11-26",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T19:42:20.579Z"
+    },
+    {
+      "id": 1763668007191,
+      "artistId": "1",
+      "clientId": 1,
+      "date": "2025-11-27",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-20T19:46:47.191Z"
     }
   ]
 }

@@ -1,3 +1,33 @@
-<h2>Listado de Tatuadoras</h2>
+
 <p>Aquí irá el CRUD de tatuadoras.</p>
 
+<h2>Mis Turnos</h2>
+
+<div *ngIf="reservas.length > 0; else sinTurnos">
+  <table>
+    <thead>
+      <tr>
+        <th>Artista</th>
+        <th>Fecha</th>
+        <th>Hora inicio</th>
+        <th>Hora fin</th>
+        <th>Cliente</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of reservas">
+        <td>{{ getNombreArtist(r.artistId) }}</td>
+        <td>{{ r.date }}</td>
+        <td>{{ r.startTime }}</td>
+        <td>{{ r.endTime }}</td>
+        <td>{{ r.clientId }}</td>
+        <td>{{ r.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<ng-template #sinTurnos>
+  <p>No hay turnos para mostrar.</p>
+</ng-template>
