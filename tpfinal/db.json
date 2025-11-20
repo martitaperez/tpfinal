@@ -17,6 +17,17 @@
       "role": "artist",
       "createdAt": "2025-01-01T00:00:00.000Z",
       "updatedAt": "2025-01-01T00:00:00.000Z"
+    },
+    {
+      "id": "3",
+      "name": "Carla",
+      "apellido": "Duarte",
+      "email": "carla@example.com",
+      "password": "123456",
+      "role": "client",
+      "createdAt": "2025-01-01T00:00:00.000Z",
+      "updatedAt": "2025-01-01T00:00:00.000Z",
+      "phone": "111222333"
     }
   ],
   "artists": [

@@ -4,4 +4,8 @@
   <input type="email" [(ngModel)]="email" name="email" placeholder="Email" />
   <input type="password" [(ngModel)]="password" name="password" placeholder="Contraseña" />
   <button type="submit">Ingresar</button>
+
+  @if (errorMsg) {
+    <p style="color:red">{{ errorMsg }}</p>
+  }
 </form>

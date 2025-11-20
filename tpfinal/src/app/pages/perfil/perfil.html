@@ -1,0 +1,19 @@
+<h2>Mi Perfil</h2>
+
+<form (ngSubmit)="guardarCambios()">
+
+  <label>Nombre</label>
+  <input [(ngModel)]="user.name" name="name">
+
+  <label>Apellido</label>
+  <input [(ngModel)]="user.apellido" name="apellido">
+
+  <label>Email</label>
+  <input [(ngModel)]="user.email" name="email">
+
+  <label>Teléfono</label>
+  <input [(ngModel)]="user.phone" name="phone">
+
+  <button type="submit">Guardar cambios</button>
+
+</form>

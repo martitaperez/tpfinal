@@ -49,4 +49,14 @@ export class ApiService {
       })
     );
   }
+
+  updateUsuario(id: number, data: any) {
+  return this.http.put(`${this.baseUrl}/usuarios/${id}`, data);
+}
+login(email: string, password: string) {
+  return this.http.get(`${this.baseUrl}/users?email=${email}&password=${password}`);
+}
+
+
+
 }
