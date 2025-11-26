@@ -1,0 +1,14 @@
+.pending {
+  color: orange;
+  font-weight: bold;
+}
+
+.completed {
+  color: green;
+  font-weight: bold;
+}
+
+.cancelled {
+  color: red;
+  font-weight: bold;
+}

@@ -9,7 +9,7 @@ import { Reserva } from '../models/reserva.model';
 })
 export class TurnosService {
 
-  private url = 'http://localhost:3001/turnos';
+  private url = 'http://localhost:3000/turnos';
 
   constructor(private http: HttpClient) {}
 
@@ -22,8 +22,9 @@ export class TurnosService {
       })
     );
   }
+
   // Obtener reserva por id
-    getById(id: string | number): Observable<Reserva> {
+  getById(id: string | number): Observable<Reserva> {
     return this.http.get<Reserva>(`${this.url}/${id}`).pipe(
       catchError(err => {
         console.error("❌ Error al obtener reserva por id:", err);
@@ -41,7 +42,8 @@ export class TurnosService {
       })
     );
   }
-   // Actualizar reserva
+
+  // Actualizar reserva
   updateReserva(id: string | number, reserva: Partial<Reserva>): Observable<any> {
     return this.http.patch(`${this.url}/${id}`, reserva).pipe(
       catchError(err => {
@@ -52,7 +54,7 @@ export class TurnosService {
   }
 
   // Eliminar reserva por ID
-  eliminarReserva(id: string): Observable<any> {
+  eliminarReserva(id: string | number): Observable<any> {
     return this.http.delete(`${this.url}/${id}`).pipe(
       catchError(err => {
         console.error("❌ Error al eliminar reserva:", err);

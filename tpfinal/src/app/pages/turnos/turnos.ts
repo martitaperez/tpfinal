@@ -14,10 +14,10 @@ import { Artist } from '../../models/artist.model';
 })
 export class TurnosComponent implements OnInit {
 
-  // ===== CONFIGURACIÓN DE TURNOS (CAMBIÁS SOLO ESTO) =====
-  private readonly HORA_INICIO = 8;          // hora de inicio (8:00)
-  private readonly HORA_FIN = 17;            // hora de fin (17:00)
-  private readonly DURACION_TURNO_MIN = 90;  // duración del turno en minutos (1h30)
+  // ===== CONFIGURACIÓN DE TURNOS =====
+  private readonly HORA_INICIO = 8;
+  private readonly HORA_FIN = 17;
+  private readonly DURACION_TURNO_MIN = 90;
 
   artists: Artist[] = [];
   reservas: Reserva[] = [];
@@ -27,20 +27,26 @@ export class TurnosComponent implements OnInit {
   artistSeleccionado!: Artist;
   fechaSeleccionada: string = '';
 
-  usuarioActual: string = 'Rodrigo'; // después esto lo cambiás por el usuario logueado
+  usuarioActual: any = null;   
   hoy: string = '';
 
-  private ArtistUrl = 'http://localhost:3001/artists';
-  private TurnosUrl = 'http://localhost:3001/turnos';
+  private ArtistUrl = 'http://localhost:3000/artists';
+  private TurnosUrl = 'http://localhost:3000/turnos';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit(): void {
     this.hoy = this.formatearFecha(new Date());
+
+    // cargar usuario real
+    const saved = localStorage.getItem('user');
+    if (saved) {
+      this.usuarioActual = JSON.parse(saved);
+    }
+
     this.cargarArtists();
   }
 
-  // Helper para formatear fechas YYYY-MM-DD
   formatearFecha(fecha: Date): string {
     const y = fecha.getFullYear();
     const m = (fecha.getMonth() + 1).toString().padStart(2, '0');
@@ -55,19 +61,18 @@ export class TurnosComponent implements OnInit {
 
   seleccionarTatuador(artist: Artist) {
     this.artistSeleccionado = artist;
+
     if (this.fechaSeleccionada) {
       this.cargarReservas(artist.id, this.fechaSeleccionada);
     }
   }
 
-  // Se dispara cuando cambia la fecha (usando ngModel)
   onFechaChange() {
     if (this.artistSeleccionado && this.fechaSeleccionada) {
       this.cargarReservas(this.artistSeleccionado.id, this.fechaSeleccionada);
     }
   }
 
-  // Generar horarios usando las CONSTANTES
   generarHorarios(): { start: string; end: string }[] {
     const horarios: { start: string; end: string }[] = [];
 
@@ -94,7 +99,6 @@ export class TurnosComponent implements OnInit {
 
       const horario = { start: `${startH}:${startM}`, end: `${endH}:${endM}` };
 
-      // Si es hoy, ignorar horarios que ya pasaron
       if (
         !esHoy ||
         hora > ahora.getHours() ||
@@ -103,7 +107,6 @@ export class TurnosComponent implements OnInit {
         horarios.push(horario);
       }
 
-      // avanzar al siguiente turno usando la constante
       minutos += this.DURACION_TURNO_MIN;
       if (minutos >= 60) {
         hora += Math.floor(minutos / 60);
@@ -135,7 +138,7 @@ export class TurnosComponent implements OnInit {
     const nuevaReserva: Reserva = {
       id: Date.now(),
       artistId: this.artistSeleccionado.id,
-      clientId: 1, // TODO: reemplazar por el id del usuario logueado
+      clientId: Number(this.usuarioActual?.id || 0),
       date: this.fechaSeleccionada,
       startTime: horario.start,
       endTime: horario.end,
@@ -149,5 +152,4 @@ export class TurnosComponent implements OnInit {
         this.cargarReservas(this.artistSeleccionado.id, this.fechaSeleccionada);
       });
   }
-
 }

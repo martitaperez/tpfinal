@@ -1,19 +1,30 @@
 <h2>Mi Perfil</h2>
 
-<form (ngSubmit)="guardarCambios()">
+<section class="perfil-box">
 
-  <label>Nombre</label>
-  <input [(ngModel)]="user.name" name="name">
+  <form (ngSubmit)="guardarCambios()">
 
-  <label>Apellido</label>
-  <input [(ngModel)]="user.apellido" name="apellido">
+    <label>Nombre</label>
+    <input [(ngModel)]="user.name" name="name">
 
-  <label>Email</label>
-  <input [(ngModel)]="user.email" name="email">
+    <label>Apellido</label>
+    <input [(ngModel)]="user.apellido" name="apellido">
 
-  <label>Teléfono</label>
-  <input [(ngModel)]="user.phone" name="phone">
+    <label>Email</label>
+    <input [(ngModel)]="user.email" name="email" type="email">
 
-  <button type="submit">Guardar cambios</button>
+    <label>Teléfono</label>
+    <input [(ngModel)]="user.phone" name="phone">
 
-</form>
+    <label>Contraseña</label>
+    <input [(ngModel)]="user.password" name="password" type="password">
+
+    <button type="submit">Guardar cambios</button>
+
+  </form>
+
+  @if (mensajeGuardado !== '') {
+    <p class="ok">{{ mensajeGuardado }}</p>
+  }
+
+</section>

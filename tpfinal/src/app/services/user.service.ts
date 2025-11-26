@@ -5,36 +5,39 @@ import { catchError } from 'rxjs/operators';
 
 export interface UserModel {
   id: number;
-  username: string;
-  email?: string;
-  password?: string;
-  role?: string;
+  name: string;
+  apellido?: string;
+  email: string;
+  password: string;
+  role: 'admin' | 'artist' | 'client';
+  phone?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private url = 'http://localhost:3001/users';
+  private url = 'http://localhost:3000/users';
 
   constructor(private http: HttpClient) {}
 
-  getById(id: string | number): Observable<UserModel> {
+  // Obtener usuario por Id
+  getById(id: number): Observable<UserModel> {
     return this.http.get<UserModel>(`${this.url}/${id}`).pipe(
       catchError(err => {
-        console.error('Error GET user by id', err);
-        return throwError(() => new Error('Error GET user'));
+        console.error("❌ Error GET user by id:", err);
+        return throwError(() => new Error("Error GET user by id"));
       })
     );
   }
 
-  updateUser(id: string | number, patch: Partial<UserModel>) {
-    return this.http.patch(`${this.url}/${id}`, patch).pipe(
+  // Actualizar usuario
+  updateUser(id: number, patch: Partial<UserModel>): Observable<UserModel> {
+    return this.http.patch<UserModel>(`${this.url}/${id}`, patch).pipe(
       catchError(err => {
-        console.error('Error PATCH user', err);
-        return throwError(() => new Error('Error PATCH user'));
+        console.error("❌ Error PATCH user:", err);
+        return throwError(() => new Error("Error PATCH user"));
       })
     );
   }
 }
-

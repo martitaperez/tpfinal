@@ -5,6 +5,7 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class UserStateService {
+
   private userSubject = new BehaviorSubject<any>(null);
   user$ = this.userSubject.asObservable();
 

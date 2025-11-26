@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { AuthService } from '../../services/auth.service';
+
+import { User } from '../../models/user.model';
 import { ApiService } from '../../services/api.service';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-perfil',
@@ -10,30 +12,49 @@ import { ApiService } from '../../services/api.service';
   templateUrl: './perfil.html',
   styleUrls: ['./perfil.css']
 })
-export class PerfilComponent {
+export class PerfilComponent implements OnInit {
 
-  user: any = {};
+  user: User = {
+    id: 0,
+    name: '',
+    email: '',
+    password: '',
+    role: 'client'
+  };
+
+  mensajeGuardado = '';
 
   constructor(
-    private auth: AuthService,
-    private api: ApiService
+    private api: ApiService,
+    private auth: AuthService
   ) {}
 
-  ngOnInit() {
+  ngOnInit(): void {
     const u = this.auth.getUser();
     if (u) {
-      this.user = { ...u }; 
+      this.user = { ...u }; // copia segura
     }
   }
 
-  guardarCambios() {
+  guardarCambios(): void {
     if (!this.user.id) return;
 
-    this.api.updateUsuario(this.user.id, this.user).subscribe(() => {
-      alert("Datos guardados correctamente");
+    const patch: Partial<User> = {
+      name: this.user.name,
+      apellido: this.user.apellido,
+      email: this.user.email,
+      phone: this.user.phone,
+      password: this.user.password
+    };
 
-      
-      this.auth.login(this.user);
+    this.api.updateUsuario(this.user.id, patch).subscribe({
+      next: () => {
+        this.mensajeGuardado = 'Datos guardados correctamente.';
+        this.auth.login(this.user); // refresca localStorage
+      },
+      error: () => {
+        alert('No se pudieron guardar los cambios.');
+      }
     });
   }
 }

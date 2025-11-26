@@ -17,8 +17,8 @@ export class AdminComponent implements OnInit {
   artists: Artist[] = [];
   loading = true;
 
-  private turnosUrl = 'http://localhost:3001/turnos';
-  private artistsUrl = 'http://localhost:3001/artists';
+  private turnosUrl = 'http://localhost:3000/turnos';
+  private artistsUrl = 'http://localhost:3000/artists';
 
   constructor(private http: HttpClient) {}
 

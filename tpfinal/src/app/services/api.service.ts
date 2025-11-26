@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError, map } from 'rxjs/operators';
 import { User } from '../models/user.model';
 
 @Injectable({
@@ -9,47 +9,41 @@ import { User } from '../models/user.model';
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:3001';  // mismo puerto que usás con json-server
+  private baseUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) {}
 
   // USERS
   getUsuarios(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.baseUrl}/users`).pipe(
-      catchError(err => {
-        console.error('❌ Error al obtener usuarios:', err);
-        return throwError(() => new Error('Error GET /users'));
-      })
-    );
+    return this.http.get<User[]>(`${this.baseUrl}/users`);
   }
 
   addUsuario(usuario: Partial<User> & { password: string }): Observable<User> {
-    return this.http.post<User>(`${this.baseUrl}/users`, usuario).pipe(
-      catchError(err => {
-        console.error('❌ Error al agregar usuario:', err);
-        return throwError(() => new Error('Error POST /users'));
-      })
-    );
+    return this.http.post<User>(`${this.baseUrl}/users`, usuario);
   }
 
   updateUsuario(id: number, data: Partial<User>): Observable<User> {
-    return this.http.put<User>(`${this.baseUrl}/users/${id}`, data).pipe(
-      catchError(err => {
-        console.error('❌ Error al actualizar usuario:', err);
-        return throwError(() => new Error('Error PUT /users/:id'));
-      })
-    );
+    return this.http.put<User>(`${this.baseUrl}/users/${id}`, data);
   }
 
-  // LOGIN: busca por email + password en /users
   login(email: string, password: string): Observable<User[]> {
-    return this.http
-      .get<User[]>(`${this.baseUrl}/users?email=${email}&password=${password}`)
-      .pipe(
-        catchError(err => {
-          console.error('❌ Error en login:', err);
-          return throwError(() => new Error('Error login /users'));
-        })
-      );
+    return this.http.get<User[]>(`${this.baseUrl}/users?email=${email}&password=${password}`);
+  }
+
+  // ARTISTS - list
+  getArtists() {
+    return this.http.get<any[]>(`${this.baseUrl}/artists`);
+  }
+
+  // ARTISTS - get personal profile
+  getArtistByUserId(userId: number) {
+    return this.http.get<any[]>(`${this.baseUrl}/artists?userId=${userId}`)
+      .pipe(map(a => a[0] || null));
+  }
+
+  // ARTISTS - update
+  updateArtist(id: number, patch: any) {
+    return this.http.patch(`${this.baseUrl}/artists/${id}`, patch);
   }
 }
+

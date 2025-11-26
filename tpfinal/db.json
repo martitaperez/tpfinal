@@ -6,17 +6,15 @@
       "email": "admin@studio.com",
       "password": "admin123",
       "role": "admin",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "phone": "111222333"
     },
     {
       "id": "2",
-      "name": "Tatuador Demo",
+      "name": "Ana tattoo Demo",
       "email": "artist@studio.com",
       "password": "artist123",
       "role": "artist",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "phone": "222333444"
     },
     {
       "id": "3",
@@ -25,9 +23,15 @@
       "email": "carla@example.com",
       "password": "123456",
       "role": "client",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z",
-      "phone": "111222333"
+      "phone": "333444555"
+    },
+    {
+      "id": "4",
+      "name": "Rodri tattoo Demo",
+      "email": "rodri@studio.com",
+      "password": "artist123",
+      "role": "artist",
+      "phone": "45678999"
     },
     {
       "id": "1711",
@@ -35,175 +39,44 @@
       "email": "ro@hotmail.com",
       "password": "1234",
       "role": "client"
+    },
+    {
+      "id": "8868",
+      "name": "carla",
+      "email": "carla@gmail.com",
+      "password": "car123",
+      "role": "client"
     }
   ],
   "artists": [
     {
       "id": "1",
+      "userId": 2,
       "name": "Ana",
       "styles": [
         "realismo",
         "blackwork"
       ],
       "rating": 4.8,
-      "photo": "",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "ig": "@ana.ink",
+      "bio": "Especialista en realismo y blackwork",
+      "photo": ""
     },
     {
       "id": "2",
+      "userId": 4,
       "name": "Rodri",
       "styles": [
         "blackwork",
         "acuarela"
       ],
       "rating": 4.8,
-      "photo": "",
-      "createdAt": "2025-01-01T00:00:00.000Z",
-      "updatedAt": "2025-01-01T00:00:00.000Z"
+      "ig": "@rodri.tattoo",
+      "bio": "Especialista en blackwork y acuarela",
+      "photo": ""
     }
   ],
   "turnos": [
-    {
-      "id": "1763584817331",
-      "artistId": 1,
-      "clientId": 1,
-      "date": "2025-11-17",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-19T20:40:17.331Z"
-    },
-    {
-      "id": "1763586277830",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-11-20",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-19T21:04:37.830Z"
-    },
-    {
-      "id": "1763586280070",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-11-20",
-      "startTime": "09:30",
-      "endTime": "11:00",
-      "status": "pending",
-      "createdAt": "2025-11-19T21:04:40.070Z"
-    },
-    {
-      "id": "1763586283892",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-11-20",
-      "startTime": "12:30",
-      "endTime": "14:00",
-      "status": "pending",
-      "createdAt": "2025-11-19T21:04:43.892Z"
-    },
-    {
-      "id": "1763586285419",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-11-20",
-      "startTime": "14:00",
-      "endTime": "15:30",
-      "status": "pending",
-      "createdAt": "2025-11-19T21:04:45.419Z"
-    },
-    {
-      "id": "1763645635911",
-      "artistId": 1,
-      "clientId": 1,
-      "date": "2025-11-17",
-      "startTime": "09:30",
-      "endTime": "11:00",
-      "status": "pending",
-      "createdAt": "2025-11-20T13:33:55.911Z"
-    },
-    {
-      "id": "1763645989751",
-      "artistId": 1,
-      "clientId": 1,
-      "date": "2025-11-20",
-      "startTime": "14:00",
-      "endTime": "15:30",
-      "status": "pending",
-      "createdAt": "2025-11-20T13:39:49.751Z"
-    },
-    {
-      "id": "1763664904619",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-11-21",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-20T18:55:04.619Z"
-    },
-    {
-      "id": "1763664907750",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-11-21",
-      "startTime": "09:30",
-      "endTime": "11:00",
-      "status": "pending",
-      "createdAt": "2025-11-20T18:55:07.750Z"
-    },
-    {
-      "id": "1763665066820",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-11-21",
-      "startTime": "11:00",
-      "endTime": "12:30",
-      "status": "pending",
-      "createdAt": "2025-11-20T18:57:46.820Z"
-    },
-    {
-      "id": "1763665082622",
-      "artistId": 1,
-      "clientId": 1,
-      "date": "2025-11-22",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-20T18:58:02.622Z"
-    },
-    {
-      "id": "1763665216329",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-11-27",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-20T19:00:16.329Z"
-    },
-    {
-      "id": "1763665372801",
-      "artistId": 1,
-      "clientId": 1,
-      "date": "2025-12-01",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-20T19:02:52.801Z"
-    },
-    {
-      "id": "1763665384145",
-      "artistId": 2,
-      "clientId": 1,
-      "date": "2025-12-01",
-      "startTime": "08:00",
-      "endTime": "09:30",
-      "status": "pending",
-      "createdAt": "2025-11-20T19:03:04.145Z"
-    },
     {
       "id": "1763665394234",
       "artistId": 1,
@@ -221,7 +94,7 @@
       "date": "2025-11-27",
       "startTime": "09:30",
       "endTime": "11:00",
-      "status": "pending",
+      "status": "completed",
       "createdAt": "2025-11-20T19:05:42.770Z"
     },
     {
@@ -245,7 +118,7 @@
       "createdAt": "2025-11-20T19:46:47.191Z"
     },
     {
-      "id": 1764172088861,
+      "id": "1764172088861",
       "artistId": "1",
       "clientId": 1,
       "date": "2025-11-27",
@@ -255,7 +128,7 @@
       "createdAt": "2025-11-26T15:48:08.861Z"
     },
     {
-      "id": 1764172092961,
+      "id": "1764172092961",
       "artistId": "1",
       "clientId": 1,
       "date": "2025-11-27",
@@ -265,7 +138,7 @@
       "createdAt": "2025-11-26T15:48:12.961Z"
     },
     {
-      "id": 1764172920592,
+      "id": "1764172920592",
       "artistId": "1",
       "clientId": 1,
       "date": "2025-11-27",
@@ -273,6 +146,36 @@
       "endTime": "12:30",
       "status": "pending",
       "createdAt": "2025-11-26T16:02:00.592Z"
+    },
+    {
+      "id": "1764183448797",
+      "artistId": "1",
+      "clientId": 3,
+      "date": "2025-11-27",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-26T18:57:28.797Z"
+    },
+    {
+      "id": 1764190006820,
+      "artistId": "1",
+      "clientId": 3,
+      "date": "2025-11-29",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-26T20:46:46.820Z"
+    },
+    {
+      "id": 1764190013375,
+      "artistId": "2",
+      "clientId": 3,
+      "date": "2025-11-28",
+      "startTime": "08:00",
+      "endTime": "09:30",
+      "status": "pending",
+      "createdAt": "2025-11-26T20:46:53.375Z"
     }
   ]
 }
