@@ -1,12 +1,10 @@
 <h2>Gestión de Turnos</h2>
 <p>Aquí se mostrarán los turnos disponibles / reservados.</p>
 
-<h2>Gestión de Turnos</h2>
-<p>Aquí se mostrarán los turnos disponibles / reservados.</p>
 
 <h2>Seleccioná un tatuador</h2>
-<div *ngFor="let artist of artists" 
-     class="artist-card" 
+<div *ngFor="let artist of artists"
+     class="artist-card"
      [class.selected]="artistSeleccionado?.id === artist.id">
   <button (click)="seleccionarTatuador(artist)">
     {{ artist.name }}
@@ -15,22 +13,19 @@
 </div>
 
 <h2>Seleccioná una fecha</h2>
-<input type="date" [(ngModel)]="fechaSeleccionada" (change)="seleccionarFecha()">
+<input
+  type="date"
+  [(ngModel)]="fechaSeleccionada"
+  (ngModelChange)="onFechaChange()"
+  [min]="hoy">
 
 <h2>Horarios disponibles</h2>
 <div *ngIf="horarios.length > 0; else sinHorarios">
-  <div *ngFor="let horario of horarios" class="horario-card">
-    <button 
-      [disabled]="horariosOcupados.includes(horario.start)"
-      (click)="reservarTurno(horario)">
-      {{ horario.start }} - {{ horario.end }}
-    </button>
-
-    <button *ngIf="horariosOcupados.includes(horario.start)"
-            (click)="cancelarTurno(horario)">
-      Cancelar
-    </button>
-  </div>
+  <button *ngFor="let horario of horarios"
+          [disabled]="horariosOcupados.includes(horario.start)"
+          (click)="reservarTurno(horario)">
+    {{ horario.start }} - {{ horario.end }}
+  </button>
 </div>
 
 <ng-template #sinHorarios>

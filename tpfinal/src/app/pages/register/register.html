@@ -1,8 +1,35 @@
 <h2>Registro</h2>
 
 <form (ngSubmit)="register()">
-  <input type="text" [(ngModel)]="user.name" name="name" placeholder="Nombre" />
-  <input type="email" [(ngModel)]="user.email" name="email" placeholder="Email" />
-  <input type="password" [(ngModel)]="user.password" name="password" placeholder="Contraseña" />
-  <button type="submit">Crear cuenta</button>
+  <input
+    type="text"
+    [(ngModel)]="user.name"
+    name="name"
+    placeholder="Nombre"
+    required
+  />
+
+  <input
+    type="email"
+    [(ngModel)]="user.email"
+    name="email"
+    placeholder="Email"
+    required
+  />
+
+  <input
+    type="password"
+    [(ngModel)]="user.password"
+    name="password"
+    placeholder="Contraseña"
+    required
+  />
+
+  <button type="submit">
+    Crear cuenta
+  </button>
+
+  <p *ngIf="errorMsg" style="color: red; margin-top: 8px;">
+    {{ errorMsg }}
+  </p>
 </form>

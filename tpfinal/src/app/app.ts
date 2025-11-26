@@ -1,81 +1,90 @@
 import { Component } from '@angular/core';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { RouterLink, RouterOutlet, Router } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
 import { NgIf } from '@angular/common';
 import { UserStateService } from './services/user-state.service';
+import { User } from './models/user.model';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   imports: [RouterOutlet, HttpClientModule, RouterLink, NgIf],
   template: `
-    
-
     <nav>
       <a routerLink="/home">Inicio</a>
 
-      @if (!user) {
-        <a routerLink="/login">Ingresar</a>
-        <a routerLink="/register">Registrarme</a>
-      }
+      <!-- Cliente: puede pedir turnos -->
+      <a routerLink="/turnos" *ngIf="isClient()">Turnos</a>
 
-      @if (user) {
-        <a routerLink="/perfil">Perfil</a>
+      <!-- Artista: ve sus propios turnos -->
+      <a routerLink="/tatuadoras" *ngIf="isArtist()">Mis turnos</a>
 
-        @if (user.role === 'admin') {
-          <a routerLink="/admin">Admin</a>
-        }
+      <!-- Admin: panel de administración -->
+      <a routerLink="/admin" *ngIf="isAdmin()">Admin</a>
 
-        @if (user.role === 'artist') {
-          <a routerLink="/tatuadoras">Panel Tatuadora</a>
-        }
+      <!-- Perfil (si querés usarlo luego) -->
+      <a routerLink="/perfil" *ngIf="isLoggedIn()">Mi perfil</a>
 
-        <a (click)="logout()" style="cursor:pointer;">Cerrar sesión</a>
-      }
+      <!-- Auth -->
+      <a routerLink="/login" *ngIf="!isLoggedIn()">Login</a>
+      <a routerLink="/register" *ngIf="!isLoggedIn()">Registrarse</a>
+
+      <span *ngIf="isLoggedIn()" style="margin-left: 1rem;">
+        {{ user?.name }} ({{ user?.role }})
+      </span>
+
+      <button *ngIf="isLoggedIn()" (click)="logout()" style="margin-left: .5rem;">
+        Cerrar sesión
+      </button>
     </nav>
 
+    <hr />
+
     <router-outlet></router-outlet>
-  `,
-  styles: [`
-    nav {
-      display: flex;
-      gap: 15px;
-      margin-bottom: 20px;
-      padding: 10px 0;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: blue;
-    }
-
-    nav a:hover {
-      text-decoration: underline;
-    }
-  `]
+  `
 })
 export class App {
-  user: any = null;
 
-  constructor(private userState: UserStateService) {
-  this.loadUser();
+  user: User | null = null;
 
-  
-  this.userState.user$.subscribe(u => {
-    if (u) {
+  constructor(
+    private auth: AuthService,
+    private userState: UserStateService,
+    private router: Router
+  ) {
+    // usuario inicial
+    this.user = this.auth.getUser();
+
+    this.userState.user$.subscribe(u => {
       this.user = u;
-    }
-  });
-}
+    });
 
-  loadUser() {
-    const saved = localStorage.getItem('user');
-    this.user = saved ? JSON.parse(saved) : null;
+    // si había usuario en localStorage, lo reinyectamos al state
+    if (this.user) {
+      this.userState.setUser(this.user);
+    }
+  }
+
+  isLoggedIn(): boolean {
+    return !!this.user;
+  }
+
+  isAdmin(): boolean {
+    return this.user?.role === 'admin';
+  }
+
+  isArtist(): boolean {
+    return this.user?.role === 'artist';
+  }
+
+  isClient(): boolean {
+    return this.user?.role === 'client';
   }
 
   logout() {
-    localStorage.removeItem('user');
-    this.user = null;
-    location.reload();
+    this.auth.logout();
+    this.userState.setUser(null);
+    this.router.navigate(['/home']);
   }
 }

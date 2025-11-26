@@ -2,61 +2,54 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
+import { User } from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiService {
 
-  private baseUrl = 'http://localhost:3000';
+  private baseUrl = 'http://localhost:3001';  // mismo puerto que usás con json-server
 
   constructor(private http: HttpClient) {}
 
-  // TURNOS
-  getTurnos(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/turnos`).pipe(
+  // USERS
+  getUsuarios(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.baseUrl}/users`).pipe(
       catchError(err => {
-        console.error("❌ Error al obtener turnos:", err);
-        return throwError(() => new Error("Error GET /turnos"));
+        console.error('❌ Error al obtener usuarios:', err);
+        return throwError(() => new Error('Error GET /users'));
       })
     );
   }
 
-  addTurno(turno: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/turnos`, turno).pipe(
+  addUsuario(usuario: Partial<User> & { password: string }): Observable<User> {
+    return this.http.post<User>(`${this.baseUrl}/users`, usuario).pipe(
       catchError(err => {
-        console.error("❌ Error al agregar turno:", err);
-        return throwError(() => new Error("Error POST /turnos"));
+        console.error('❌ Error al agregar usuario:', err);
+        return throwError(() => new Error('Error POST /users'));
       })
     );
   }
 
-  // USUARIOS
-  getUsuarios(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/usuarios`).pipe(
+  updateUsuario(id: number, data: Partial<User>): Observable<User> {
+    return this.http.put<User>(`${this.baseUrl}/users/${id}`, data).pipe(
       catchError(err => {
-        console.error("❌ Error al obtener usuarios:", err);
-        return throwError(() => new Error("Error GET /usuarios"));
+        console.error('❌ Error al actualizar usuario:', err);
+        return throwError(() => new Error('Error PUT /users/:id'));
       })
     );
   }
 
-  addUsuario(usuario: any): Observable<any> {
-    return this.http.post(`${this.baseUrl}/usuarios`, usuario).pipe(
-      catchError(err => {
-        console.error("❌ Error al agregar usuario:", err);
-        return throwError(() => new Error("Error POST /usuarios"));
-      })
-    );
+  // LOGIN: busca por email + password en /users
+  login(email: string, password: string): Observable<User[]> {
+    return this.http
+      .get<User[]>(`${this.baseUrl}/users?email=${email}&password=${password}`)
+      .pipe(
+        catchError(err => {
+          console.error('❌ Error en login:', err);
+          return throwError(() => new Error('Error login /users'));
+        })
+      );
   }
-
-  updateUsuario(id: number, data: any) {
-  return this.http.put(`${this.baseUrl}/usuarios/${id}`, data);
-}
-login(email: string, password: string) {
-  return this.http.get(`${this.baseUrl}/users?email=${email}&password=${password}`);
-}
-
-
-
 }
