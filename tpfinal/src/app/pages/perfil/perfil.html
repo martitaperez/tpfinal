@@ -2,6 +2,13 @@
 
 <section class="perfil-box">
 
+  
+  @if (mensaje) {
+    <div class="toast">
+      {{ mensaje }}
+    </div>
+  }
+
   <form (ngSubmit)="guardarCambios()">
 
     <label>Nombre</label>
@@ -23,8 +30,11 @@
 
   </form>
 
-  @if (mensajeGuardado !== '') {
-    <p class="ok">{{ mensajeGuardado }}</p>
+  
+  @if (esArtista) {
+    <button class="btn-tatuadora" (click)="irPerfilTatuadora()">
+      Editar mi perfil de tatuadora
+    </button>
   }
 
 </section>

@@ -1,40 +1,46 @@
 <h2>Mi Perfil de Tatuadora</h2>
 
 <section class="perfil-box">
-  <h3>Datos</h3>
 
-  <p><strong>Nombre:</strong> {{ artista?.name }}</p>
-  <p><strong>Instagram:</strong> {{ artista?.ig }}</p>
-  <p><strong>Bio:</strong> {{ artista?.bio }}</p>
-  <p><strong>Estilos:</strong> {{ artista?.styles?.join(', ') }}</p>
+  @if (mensaje) {
+    <div class="toast">{{ mensaje }}</div>
+  }
+
+  @if (artista) {
+
+    <h3>Datos profesionales</h3>
+
+    <label>Nombre artístico</label>
+    <input [(ngModel)]="artista.name" name="artName">
+
+    <label>Instagram</label>
+    <input [(ngModel)]="artista.ig" name="artIg">
+
+    <label>Bio</label>
+    <textarea [(ngModel)]="artista.bio" name="artBio"></textarea>
+
+    <label>Estilos (separados por comas)</label>
+    <input [(ngModel)]="textoEstilos" name="artStyles">
+
+    <button (click)="guardarDatosArtista()">
+      Guardar datos profesionales
+    </button>
+
+    <hr>
+
+    <h3>Datos de usuario</h3>
+
+    <label>Email</label>
+<input [(ngModel)]="usuario.email" name="userEmail">
+
+<label>Contraseña</label>
+<input [(ngModel)]="usuario.password" name="userPass" type="password">
+    <button (click)="guardarDatosUsuario()">
+      Guardar datos de usuario
+    </button>
+
+  } @else {
+    <p>No se encontró tu perfil profesional.</p>
+  }
+
 </section>
-
-<h3>Mis Reservas</h3>
-
-@if (turnos.length === 0) {
-  <p>No tenés reservas asignadas.</p>
-} @else {
-  <table class="reservas-table">
-    <thead>
-      <tr>
-        <th>Fecha</th>
-        <th>Inicio</th>
-        <th>Fin</th>
-        <th>Cliente</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-
-    <tbody>
-      @for (r of turnos; track r.id) {
-        <tr>
-          <td>{{ r.date }}</td>
-          <td>{{ r.startTime }}</td>
-          <td>{{ r.endTime }}</td>
-          <td>{{ r.clientId }}</td>
-          <td>{{ r.status }}</td>
-        </tr>
-      }
-    </tbody>
-  </table>
-}

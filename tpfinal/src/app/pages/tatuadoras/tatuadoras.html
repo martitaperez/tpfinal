@@ -1,51 +1,68 @@
-
 <h2>Mis Turnos</h2>
 
 <section class="turnos-box">
-
-  @if (misTurnos.length === 0) {
-    <p>No tenés turnos asignados.</p>
-  } @else {
-
-    <table class="turnos-table">
-      <thead>
-        <tr>
-          <th>Fecha</th>
-          <th>Horario</th>
-          <th>Cliente</th>
-          <th>Estado</th>
-          <th>Acciones</th>
-        </tr>
-      </thead>
-
-      <tbody>
-        @for (t of misTurnos; track t.id) {
-          <tr>
-            <td>{{ t.date }}</td>
-            <td>{{ t.startTime }} - {{ t.endTime }}</td>
-            <td>{{ getNombreCliente(t.clientId) }}</td>
-            <td>{{ traducirEstado(t.status) }}</td>
-
-            <td>
-              <button (click)="marcarCompleto(t.id)"
-                      [disabled]="t.status === 'completed'">
-                Completar
-              </button>
-            <button (click)="cancelarTurno(t.id)" [disabled]="t.status === 'cancelled'">
-              Cancelar
-            </button>
-            <button (click)="eliminarTurno(t.id)">Eliminar</button>
-            </td>
-          </tr>
-        }
-      </tbody>
-    </table>
-
+  @if (mensaje) {
+  <div class="toast">
+    {{ mensaje }}
+  </div>
   }
 
-  <button (click)="irPerfilTatuadora()">
-    Editar mi perfil de tatuadora
-  </button>
-  
+  @if (misTurnos.length === 0) {
+  <p>No tenés turnos asignados.</p>
+  } @else {
+
+  <table class="turnos-table">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Horario</th>
+        <th>Cliente</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      @for (t of misTurnos; track t.id) {
+      <tr>
+        <td>{{ t.date }}</td>
+        <td>{{ t.startTime }} - {{ t.endTime }}</td>
+        <td>{{ getNombreCliente(t.clientId) }}</td>
+        <td>
+          <span [ngClass]="t.status">
+            {{ traducirEstado(t.status) }}
+          </span>
+        </td>
+
+
+        <td>
+          <button (click)="marcarCompleto(t.id)" [disabled]="t.status === 'completed'">
+            Completar
+          </button>
+          <button (click)="cancelarTurno(t.id)" [disabled]="t.status === 'cancelled'">
+            Cancelar
+          </button>
+          <button (click)="eliminarTurno(t.id)">Eliminar</button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+
+  }
+  @if (modalConfirmVisible) {
+  <div class="modal-backdrop">
+    <div class="modal-box">
+      <p>{{ modalConfirmText }}</p>
+
+      <div class="modal-actions">
+        <button class="confirm" (click)="confirmar()">Aceptar</button>
+        <button class="cancel" (click)="cancelar()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+}
+
+
 
 </section>

@@ -42,6 +42,13 @@ export const routes: Routes = [
   loadComponent: () =>
     import('./pages/perfil/perfil').then(m => m.PerfilComponent)
 },
+{
+  path: 'perfil-tatuadora',
+  loadComponent: () =>
+    import('./pages/perfil-tatuadora/perfil-tatuadora')
+    .then((m) => m.PerfilTatuadoraComponent),
+},
+
 
   {
     path: '**',

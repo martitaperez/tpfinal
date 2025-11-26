@@ -37,7 +37,7 @@ export class TurnosService {
   crearReserva(reserva: Reserva): Observable<any> {
     return this.http.post(this.url, reserva).pipe(
       catchError(err => {
-        console.error("❌ Error al crear reserva:", err);
+        console.error("Error al crear reserva:", err);
         return throwError(() => new Error("Error en POST reserva"));
       })
     );
@@ -47,7 +47,7 @@ export class TurnosService {
   updateReserva(id: string | number, reserva: Partial<Reserva>): Observable<any> {
     return this.http.patch(`${this.url}/${id}`, reserva).pipe(
       catchError(err => {
-        console.error("❌ Error al actualizar reserva:", err);
+        console.error("Error al actualizar reserva:", err);
         return throwError(() => new Error("Error en PATCH reserva"));
       })
     );
@@ -57,7 +57,7 @@ export class TurnosService {
   eliminarReserva(id: string | number): Observable<any> {
     return this.http.delete(`${this.url}/${id}`).pipe(
       catchError(err => {
-        console.error("❌ Error al eliminar reserva:", err);
+        console.error("Error al eliminar reserva:", err);
         return throwError(() => new Error("Error en DELETE reserva"));
       })
     );

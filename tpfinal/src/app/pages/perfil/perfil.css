@@ -1,0 +1,33 @@
+.toast {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  background: #f8c7d3;
+  color: #3a1d2b;
+  padding: 12px 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+  font-weight: 500;
+  z-index: 2000;
+  animation: fadeInOut 3s ease forwards;
+}
+
+@keyframes fadeInOut {
+  0% { opacity: 0; transform: translateY(-10px); }
+  10% { opacity: 1; transform: translateY(0); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-10px); }
+}
+.btn-tatuadora {
+  margin-top: 20px;
+  padding: 10px;
+  background: #ff6b8a;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn-tatuadora:hover {
+  background: #ff5074;
+}

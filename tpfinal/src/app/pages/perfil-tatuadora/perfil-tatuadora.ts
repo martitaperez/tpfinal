@@ -6,8 +6,8 @@ import { Artist } from '../../models/artist.model';
 import { User } from '../../models/user.model';
 
 import { ArtistService } from '../../services/artist.service';
-import { TurnosService } from '../../services/turnos.service';
 import { AuthService } from '../../services/auth.service';
+import { ApiService } from '../../services/api.service';
 import { Router } from '@angular/router';
 
 @Component({
@@ -19,34 +19,63 @@ import { Router } from '@angular/router';
 })
 export class PerfilTatuadoraComponent implements OnInit {
 
-  artista: Artist | null = null;
-  usuario: User | null = null;
-  turnos: any[] = [];
+  artista!: Artist;
+  usuario!: User;
+
+  textoEstilos: string = "";
+  mensaje: string | null = null;
 
   constructor(
     private artistService: ArtistService,
-    private turnosService: TurnosService,
     private authService: AuthService,
+    private api: ApiService,
     private router: Router
   ) {}
 
   ngOnInit(): void {
-    const currentUser = this.authService.getUser();
-    if (!currentUser) {
+    const user = this.authService.getUser();
+    if (!user) {
       this.router.navigate(['/login']);
       return;
     }
 
-    this.usuario = currentUser;
+    this.usuario = { ...user };
 
-    // cargar artista → usando userId
+    // cargar artista
     this.artistService.getAll().subscribe(arts => {
-      this.artista = arts.find(a => a.userId === currentUser.id) ?? null;
-    });
+      const art = arts.find(a => a.userId == user.id);
 
-    // cargar turnos del artista
-    this.turnosService.getAll().subscribe(res => {
-      this.turnos = res.filter(t => t.artistId === currentUser.id || t.artistId === this.artista?.id);
+      if (!art) return;
+
+      this.artista = art;
+      this.textoEstilos = art.styles.join(', ');
+    });
+  }
+
+  mostrarMensaje(texto: string) {
+    this.mensaje = texto;
+    setTimeout(() => (this.mensaje = null), 3000);
+  }
+
+  guardarDatosArtista() {
+    if (!this.artista) return;
+
+    this.artista.styles = this.textoEstilos
+      .split(',')
+      .map(s => s.trim())
+      .filter(s => s.length > 0);
+
+    this.artistService
+      .updateArtist(this.artista.id, this.artista)
+      .subscribe(() => this.mostrarMensaje("Datos profesionales actualizados."));
+  }
+
+  guardarDatosUsuario() {
+    if (!this.usuario.id) return;
+
+    this.api.updateUsuario(this.usuario.id, this.usuario).subscribe(() => {
+      this.authService.login(this.usuario);
+      this.mostrarMensaje("Datos de usuario actualizados.");
     });
   }
 }

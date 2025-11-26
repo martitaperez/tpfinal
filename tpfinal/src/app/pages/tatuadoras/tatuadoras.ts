@@ -29,7 +29,7 @@ export class TatuadorasComponent implements OnInit {
     private artistService: ArtistService,
     private api: ApiService,
     private router: Router
-  ) {}
+  ) { }
 
   ngOnInit(): void {
     const user = this.authService.getUser();
@@ -63,42 +63,67 @@ export class TatuadorasComponent implements OnInit {
 
   traducirEstado(estado: string): string {
     switch (estado) {
-      case 'pending':   return 'Pendiente';
+      case 'pending': return 'Pendiente';
       case 'completed': return 'Completado';
       case 'cancelled': return 'Cancelado';
       default: return estado;
     }
   }
+  modalConfirmVisible = false;
+  modalConfirmText = "";
+  modalConfirmAction: (() => void) | null = null;
+
+  abrirConfirmacion(texto: string, accion: () => void) {
+    this.modalConfirmText = texto;
+    this.modalConfirmAction = accion;
+    this.modalConfirmVisible = true;
+  }
+
+  confirmar() {
+    if (this.modalConfirmAction) this.modalConfirmAction();
+    this.modalConfirmVisible = false;
+  }
+
+  cancelar() {
+    this.modalConfirmVisible = false;
+  }
 
   marcarCompleto(id: string | number) {
     this.turnosService.updateReserva(id, { status: 'completed' })
       .subscribe(() => {
-        alert("Turno marcado como completado");
+        this.mostrarMensaje("Turno marcado como completado");
         this.cargarTurnos();
       });
   }
 
   cancelarTurno(id: string | number) {
-    if (!confirm("¿Cancelar este turno?")) return;
-
-    this.turnosService.updateReserva(id, { status: 'cancelled' })
-      .subscribe(() => {
-        alert("Turno cancelado");
-        this.cargarTurnos();
-      });
+    this.abrirConfirmacion("¿Cancelar este turno?", () => {
+      this.turnosService.updateReserva(id, { status: 'cancelled' })
+        .subscribe(() => {
+          this.mostrarMensaje("Turno cancelado");
+          this.cargarTurnos();
+        });
+    });
   }
 
   eliminarTurno(id: string | number) {
-    if (!confirm("¿Eliminar definitivamente este turno?")) return;
+    this.abrirConfirmacion("¿Eliminar definitivamente este turno?", () => {
+      this.turnosService.eliminarReserva(id)
+        .subscribe(() => {
+          this.mostrarMensaje("Turno eliminado");
+          this.cargarTurnos();
+        });
+    });
 
-    this.turnosService.eliminarReserva(String(id))
-      .subscribe(() => {
-        alert("Turno eliminado");
-        this.cargarTurnos();
-      });
   }
 
-  irPerfilTatuadora() {
-    this.router.navigate(['/perfil-tatuadora']);
+  
+  mensaje: string | null = null;
+
+  mostrarMensaje(texto: string) {
+    this.mensaje = texto;
+
+    // Ocultar después de 3 segundos
+    setTimeout(() => this.mensaje = null, 3000);
   }
 }

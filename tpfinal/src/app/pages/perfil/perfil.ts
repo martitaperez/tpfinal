@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { User } from '../../models/user.model';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-perfil',
@@ -22,18 +23,27 @@ export class PerfilComponent implements OnInit {
     role: 'client'
   };
 
-  mensajeGuardado = '';
+  mensaje: string | null = null;     
+  esArtista = false;
 
   constructor(
     private api: ApiService,
-    private auth: AuthService
+    private auth: AuthService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
     const u = this.auth.getUser();
     if (u) {
-      this.user = { ...u }; // copia segura
+      this.user = { ...u };
+      this.esArtista = u.role === 'artist';
     }
+  }
+
+  
+  mostrarMensaje(texto: string) {
+    this.mensaje = texto;
+    setTimeout(() => this.mensaje = null, 3000);
   }
 
   guardarCambios(): void {
@@ -49,12 +59,16 @@ export class PerfilComponent implements OnInit {
 
     this.api.updateUsuario(this.user.id, patch).subscribe({
       next: () => {
-        this.mensajeGuardado = 'Datos guardados correctamente.';
         this.auth.login(this.user); // refresca localStorage
+        this.mostrarMensaje("Datos guardados correctamente.");  
       },
       error: () => {
-        alert('No se pudieron guardar los cambios.');
+        this.mostrarMensaje("No se pudieron guardar los cambios.");  
       }
     });
+  }
+
+  irPerfilTatuadora(): void {
+    this.router.navigate(['/perfil-tatuadora']);
   }
 }
