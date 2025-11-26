@@ -1,0 +1,47 @@
+<div class="perfil-container" *ngIf="!cargando; else loading">
+  <h1 class="title">Mi perfil</h1>
+
+  <section class="card">
+    <h2 class="card-title">Datos de artista</h2>
+
+    <label class="label">Nombre</label>
+    <input class="input" [(ngModel)]="editName" placeholder="Nombre público" />
+
+    <label class="label">Instagram</label>
+    <input class="input" [(ngModel)]="editIg" placeholder="@usuario" />
+
+    <label class="label">Estilos (separados por coma)</label>
+    <input class="input" [(ngModel)]="editStyles" placeholder="ej: Neotradicional, Blackwork" />
+
+    <label class="label">Bio</label>
+    <textarea class="textarea" [(ngModel)]="editBio" rows="4" placeholder="Breve bio sobre tu trabajo"></textarea>
+
+    <label class="label">Rating (opcional)</label>
+    <input class="input" type="number" [(ngModel)]="editRating" min="0" max="5" step="0.1" />
+
+    <div class="actions">
+      <button class="btn" (click)="guardarArtista()">Guardar artista</button>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2 class="card-title">Cuenta</h2>
+
+    <label class="label">Email</label>
+    <input class="input" [(ngModel)]="editEmail" placeholder="tu@email.com" />
+
+    <label class="label">Contraseña (dejar en blanco para no cambiar)</label>
+    <input class="input" type="password" [(ngModel)]="editPassword" placeholder="Nueva contraseña" />
+
+   
+
+    <div class="actions">
+      <button class="btn" (click)="guardarCuenta()">Guardar cuenta</button>
+      <button class="btn secondary" (click)="volverAgenda()">Volver a agenda</button>
+    </div>
+  </section>
+</div>
+
+<ng-template #loading>
+  <div class="loading">Cargando perfil...</div>
+</ng-template>

@@ -4,6 +4,6 @@ export interface User {
   apellido: string;
   email: string;
   role: 'client' | 'admin' | 'artist';
-  phone?: string;
+  phone: string;
  
 }

@@ -1,0 +1,7 @@
+.detail { max-width:720px; margin:18px auto; padding:14px; border:1px solid #ddd; border-radius:8px; background:#fff; }
+.fila { margin:8px 0; }
+.campo { margin-top:12px; }
+.cliente-desc { background:#f7f7f7; padding:8px; border-radius:4px; min-height:40px; }
+textarea { width:100%; box-sizing:border-box; padding:8px; font-family:inherit; }
+.acciones { margin-top:12px; display:flex; gap:8px; }
+.loading { text-align:center; margin-top:40px; color:#666; }

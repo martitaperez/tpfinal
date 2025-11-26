@@ -22,6 +22,15 @@ export class TurnosService {
       })
     );
   }
+  // Obtener reserva por id
+    getById(id: string | number): Observable<Reserva> {
+    return this.http.get<Reserva>(`${this.url}/${id}`).pipe(
+      catchError(err => {
+        console.error("❌ Error al obtener reserva por id:", err);
+        return throwError(() => new Error("Error en GET reserva by id"));
+      })
+    );
+  }
 
   // Crear nueva reserva
   crearReserva(reserva: Reserva): Observable<any> {
@@ -29,6 +38,15 @@ export class TurnosService {
       catchError(err => {
         console.error("❌ Error al crear reserva:", err);
         return throwError(() => new Error("Error en POST reserva"));
+      })
+    );
+  }
+   // Actualizar reserva
+  updateReserva(id: string | number, reserva: Partial<Reserva>): Observable<any> {
+    return this.http.patch(`${this.url}/${id}`, reserva).pipe(
+      catchError(err => {
+        console.error("❌ Error al actualizar reserva:", err);
+        return throwError(() => new Error("Error en PATCH reserva"));
       })
     );
   }

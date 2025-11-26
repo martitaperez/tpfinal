@@ -1,0 +1,29 @@
+<div class="detail" *ngIf="!cargando && reserva">
+  <h2>Detalle de la reserva</h2>
+
+  <div class="fila"><strong>ID:</strong> {{ reserva.id }}</div>
+  <div class="fila"><strong>Fecha (date):</strong> {{ reserva.date.split('T')[0] }}</div>
+  <div class="fila"><strong>Hora inicio (startTime):</strong> {{ reserva.startTime }}</div>
+  <div class="fila"><strong>Hora fin (endTime):</strong> {{ reserva.endTime }}</div>
+  <div class="fila"><strong>Estado (status):</strong> {{ reserva.status }}</div>
+
+  <hr/>
+
+  <div class="campo">
+    <label>Descripción del cliente (si existe):</label>
+    <div class="cliente-desc">{{ reserva.description || '— sin descripción —' }}</div>
+  </div>
+
+  <div class="campo">
+    <label>Editar descripción / notas:</label>
+    <textarea [(ngModel)]="descripcionEditable" rows="6" placeholder="Escribe o edita la descripción..."></textarea>
+  </div>
+
+  <div class="acciones">
+    <button (click)="guardarDescripcion()">Guardar descripción</button>
+    <button (click)="cancelarTurno()">Cancelar reserva</button>
+    <button (click)="volver()">Volver</button>
+  </div>
+</div>
+
+<div *ngIf="cargando" class="loading">Cargando reserva...</div>

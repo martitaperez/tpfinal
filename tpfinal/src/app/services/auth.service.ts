@@ -4,51 +4,91 @@ import { User } from '../models/user.model';
 @Injectable({ providedIn: 'root' })
 export class AuthService {
 
+  private storageKey = 'user';
   private currentUser: User | null = null;
 
   constructor() {
-    // TEMPORAL — solo para probar sin login real
-    this.currentUser = {
-      id: 10,
-      name: "Rodrigo",
-      apellido: "Dantas",
-      email: "admin@test.com",
-      role: "admin",
-      phone: "123123"
-    };
+    // Intento recuperar usuario guardado (si hay)
+    const saved = localStorage.getItem(this.storageKey);
+    if (saved) {
+      try {
+        this.currentUser = JSON.parse(saved) as User;
+      } catch {
+        localStorage.removeItem(this.storageKey);
+        this.currentUser = null;
+      }
+    } else {
+      // TEMPORAL — solo para probar sin login real (opcional)
+      // Comentá o quita este bloque en producción.
+      this.currentUser = {
+        id: 10,
+        name: "Rodrigo",
+        apellido: "Dantas",
+        email: "admin@test.com",
+        role: "admin",
+        phone: "123123"
+      } as User;
+      
+    }
   }
 
+  // Devuelve el usuario 
   getUser(): User | null {
-    return this.currentUser;
+    if (this.currentUser) return this.currentUser;
+    const saved = localStorage.getItem(this.storageKey);
+    if (!saved) return null;
+    try {
+      this.currentUser = JSON.parse(saved) as User;
+      return this.currentUser;
+    } catch {
+      localStorage.removeItem(this.storageKey);
+      return null;
+    }
   }
 
-  isAdmin(): boolean {
-    return this.currentUser?.role === 'admin';
+  // Guarda usuario en memoria y en localStorage
+  setUser(user: User) {
+    this.currentUser = user;
+    try {
+      localStorage.setItem(this.storageKey, JSON.stringify(user));
+    } catch (e) {
+      console.warn('No se pudo guardar user en localStorage', e);
+    }
   }
 
-  isArtist(): boolean {
-    return this.currentUser?.role === 'artist';
-  }
-
-  isClient(): boolean {
-    return this.currentUser?.role === 'client';
-  }
-
+  // Login simple
   login(user: User): boolean {
     if (!user || !user.role) {
       console.error("Login fallido: datos inválidos del usuario");
       return false;
     }
-    this.currentUser = user;
+    this.setUser(user);
     return true;
   }
 
+  // Logout
   logout(): boolean {
     if (!this.currentUser) {
-      console.warn("Logout fallido: no hay usuario logueado");
+      console.warn("Logout: no hay usuario logueado");
+    
+      localStorage.removeItem(this.storageKey);
       return false;
     }
     this.currentUser = null;
+    localStorage.removeItem(this.storageKey);
     return true;
+  }
+
+  // Helpers de rol
+  isAdmin(): boolean {
+    return this.getUser()?.role === 'admin';
+  }
+
+  isArtist(): boolean {
+    return this.getUser()?.role === 'artist' ;
+  }
+
+  isClient(): boolean {
+    return this.getUser()?.role === 'client' ;
   }
 }
