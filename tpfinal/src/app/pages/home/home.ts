@@ -3,6 +3,9 @@ import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ArtistService } from '../../services/artist.service';
 import { Artist } from '../../models/artist.model';
+import { AuthService } from '../../services/auth.service';
+
+
 
 @Component({
   selector: 'app-home',
@@ -15,15 +18,16 @@ export class HomeComponent implements OnInit {
 
   artistas: Artist[] = [];
   
-  // 🔥 Tus variables reales:
+  
   artistaSeleccionada: Artist | null = null;
 
-  // 🔥 Variable para el modal principal:
+  
   modalAbierto = false;
 
   constructor(
     private artistService: ArtistService,
-    private router: Router
+    private router: Router,
+    private auth: AuthService
   ) {}
 
   ngOnInit() {
@@ -32,29 +36,40 @@ export class HomeComponent implements OnInit {
     });
   }
 
-  // 🔥 Abrir lista de tatuadoras (primer modal)
+  
   abrirTatuadoras() {
     this.modalAbierto = true;
   }
 
-  // 🔥 Cerrar lista de tatuadoras
+  
   cerrarTatuadoras() {
     this.modalAbierto = false;
-    this.artistaSeleccionada = null; // Cierra también el detalle
+    this.artistaSeleccionada = null; 
   }
 
-  // 🔥 Abrir detalle de una tatuadora
+ 
   verMas(artist: Artist) {
     this.artistaSeleccionada = artist;
   }
 
-  // 🔥 Cerrar detalle de tatuadora
+  
   cerrarDetalle() {
     this.artistaSeleccionada = null;
   }
 
-  // 🔥 Redireccionar a turnos
-  irAReservar() {
-    this.router.navigate(['/turnos']);
+  
+ irAReservar() {
+  const user = this.auth.getUser();
+  console.log("USER:", user);
+
+  if (!user) {
+    
+    this.router.navigate(['/login'], { queryParams: { redirectTo: 'turnos' } });
+    return;
   }
+
+  
+  this.router.navigate(['/turnos']);
+}
+  
 }

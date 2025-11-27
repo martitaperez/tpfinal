@@ -8,12 +8,10 @@
   </div>
 </section>
 
-
-<!-- MODAL PRINCIPAL (lista de tatuadoras) -->
 @if (modalAbierto) {
-  <div class="overlay">
+  <div class="overlay" (click)="cerrarTatuadoras()">
 
-    <div class="modal">
+    <div class="modal" (click)="$event.stopPropagation()">
       <button class="cerrar" (click)="cerrarTatuadoras()">×</button>
 
       <h2>Nuestras Tatuadoras</h2>
@@ -44,13 +42,11 @@
   </div>
 }
 
-
-<!-- PANEL DE DETALLE (modal secundario) -->
 @if (artistaSeleccionada) {
 
-  <div class="overlay perfil">
+  <div class="overlay perfil" (click)="cerrarDetalle()">
 
-    <section class="modal detalle">
+    <section class="modal detalle" (click)="$event.stopPropagation()">
       <button class="cerrar" (click)="cerrarDetalle()">×</button>
 
       <img src="{{ artistaSeleccionada.photo || 'assets/no-photo.png' }}" class="foto-grande">
@@ -69,7 +65,7 @@
 
       <br><br>
 
-      <button class="reservar-btn" (click)="irAReservar()">
+      <button class="reservar-btn" (click)="irAReservar(); $event.stopPropagation()">
         Reservar turno
       </button>
     </section>
