@@ -3,6 +3,7 @@
     <h2>Iniciar Sesión</h2>
 
     <form (ngSubmit)="login()">
+
       <input
         type="email"
         [(ngModel)]="email"
@@ -10,6 +11,7 @@
         placeholder="Email"
         required
       />
+
       <input
         type="password"
         [(ngModel)]="password"
@@ -17,9 +19,13 @@
         placeholder="Contraseña"
         required
       />
+
+      @if (errorMsg) {
+        <p class="error">{{ errorMsg }}</p>
+      }
+
       <button type="submit">Ingresar</button>
 
-      <p *ngIf="errorMsg">{{ errorMsg }}</p>
     </form>
   </div>
 </div>

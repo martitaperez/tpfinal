@@ -34,22 +34,22 @@ export class RegisterComponent {
   register() {
     this.errorMsg = '';
 
-    // armamos el objeto para la API
+    
     const nuevoUsuario: Partial<User> & { password: string } = {
       id: Date.now(),
       name: this.user.name,
       email: this.user.email,
       password: this.user.password,
-      role: 'client'   // todo el que se registra es cliente
+      role: 'client'   
     };
 
     this.api.addUsuario(nuevoUsuario).subscribe({
       next: (created: User) => {
-        // loguear automáticamente
+     
         this.auth.login(created);
         this.userState.setUser(created);
 
-        // lo mando a pedir turno
+        
         this.router.navigate(['/turnos']);
       },
       error: err => {
