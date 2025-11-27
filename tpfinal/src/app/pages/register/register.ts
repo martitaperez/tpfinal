@@ -36,6 +36,7 @@ export class RegisterComponent {
 
     // armamos el objeto para la API
     const nuevoUsuario: Partial<User> & { password: string } = {
+      id: Date.now(),
       name: this.user.name,
       email: this.user.email,
       password: this.user.password,

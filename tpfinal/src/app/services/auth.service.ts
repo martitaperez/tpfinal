@@ -18,8 +18,7 @@ export class AuthService {
         this.currentUser = null;
       }
     } else {
-      // TEMPORAL — solo para probar sin login real (opcional)
-      // Comentá o quita este bloque en producción.
+
       this.currentUser = {
         id: 10,
         name: "Rodrigo",
@@ -46,7 +45,6 @@ export class AuthService {
     }
   }
 
-  // Guarda usuario en memoria y en localStorage
   setUser(user: User) {
     this.currentUser = user;
     try {
@@ -56,7 +54,7 @@ export class AuthService {
     }
   }
 
-  // Login simple
+
   login(user: User): boolean {
     if (!user || !user.role) {
       console.error("Login fallido: datos inválidos del usuario");
@@ -66,7 +64,6 @@ export class AuthService {
     return true;
   }
 
-  // Logout
   logout(): boolean {
     if (!this.currentUser) {
       console.warn("Logout: no hay usuario logueado");
@@ -79,7 +76,7 @@ export class AuthService {
     return true;
   }
 
-  // Helpers de rol
+
   isAdmin(): boolean {
     return this.getUser()?.role === 'admin';
   }

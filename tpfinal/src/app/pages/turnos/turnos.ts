@@ -4,6 +4,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { Reserva } from '../../models/reserva.model';
 import { Artist } from '../../models/artist.model';
+import { TurnosService } from '../../services/turnos.service';
 
 @Component({
   selector: 'app-turnos',
@@ -25,10 +26,15 @@ export class TurnosComponent implements OnInit {
   usuarioActual: any = null;   
   hoy: string = '';
 
+  turnosDelUsuario: Reserva[] = [];
+
   private ArtistUrl = 'http://localhost:3000/artists';
   private TurnosUrl = 'http://localhost:3000/turnos';
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private turnosService: TurnosService
+  ) {}
 
   ngOnInit(): void {
     this.hoy = this.formatearFecha(new Date());
@@ -36,6 +42,7 @@ export class TurnosComponent implements OnInit {
     const saved = localStorage.getItem('user');
     if (saved) {
       this.usuarioActual = JSON.parse(saved);
+      this.cargarMisReservas();
     }
 
     this.cargarArtists();
@@ -136,15 +143,20 @@ export class TurnosComponent implements OnInit {
   }
 
   reservarTurno(horario: { start: string; end: string }) {
+    if (!this.usuarioActual) {
+      alert('Debés iniciar sesión para reservar un turno.');
+      return;
+    }
+
     if (!this.artistSeleccionado || !this.fechaSeleccionada) {
-      alert('Selecciona tatuador y fecha primero');
+      alert('Seleccioná un tatuador y fecha primero');
       return;
     }
 
     const nuevaReserva: Reserva = {
-      id: Date.now(),
+      id: Math.floor(Math.random() * 1000000), // genera número entre 0 y 999999
       artistId: this.artistSeleccionado.id,
-      clientId: Number(this.usuarioActual?.id || 0),
+      clientId: Number(this.usuarioActual?.id), 
       date: this.fechaSeleccionada,
       startTime: horario.start,
       endTime: horario.end,
@@ -152,12 +164,28 @@ export class TurnosComponent implements OnInit {
       createdAt: new Date().toISOString()
     };
 
-    this.http.post(this.TurnosUrl, nuevaReserva)
+    this.turnosService.crearReserva(nuevaReserva)
       .subscribe(() => {
         alert('Reserva creada!');
         this.cargarReservasUsuario();
         this.cargarReservas(this.artistSeleccionado.id, this.fechaSeleccionada);
+        this.cargarMisReservas(); // 👈 Actualizar lista arriba
       });
+  }
+
+  cargarMisReservas() {
+    this.turnosService.getAll().subscribe(data => {
+      this.turnosDelUsuario = data.filter(
+        r => Number(r.clientId) === Number(this.usuarioActual?.id) // 👈 Comparación numérica
+      );
+    });
+  }
+
+  cancelarTurno(turnoId: number) {
+    this.turnosService.eliminarReserva(turnoId).subscribe(() => {
+      alert('Turno cancelado');
+      this.turnosDelUsuario = this.turnosDelUsuario.filter(t => t.id !== turnoId);
+    });
   }
 }
 
