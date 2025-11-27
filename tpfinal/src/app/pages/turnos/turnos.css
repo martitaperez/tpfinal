@@ -1,122 +1,100 @@
-/* ---------------------------------------------
-                TURNOS PANEL
---------------------------------------------- */
+/* CONTENEDOR GENERAL */
+
+/* SECCIÓN PRINCIPAL CENTRADA Y CON AIRE */
 .turnos-container {
-  max-width: 800px;  /* más angosto que antes */
-  margin: 80px auto 40px auto;
+  max-width: 900px;
+  margin: 80px auto 40px;   
   padding: 0 20px;
-  font-family: Arial, sans-serif;
-}
-
-/* ---------------------------------------------
-                TÍTULOS
---------------------------------------------- */
-.turnos-container h2,
-.turnos-container h3 {
-  color: #ff6b8a;
-  margin-bottom: 15px;
-  text-align: left;
-}
-
-/* ---------------------------------------------
-                TABLA DE TURNOS DEL CLIENTE
---------------------------------------------- */
-.tabla-turnos {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 15px;
-  margin-bottom: 25px;
-}
-
-.tabla-turnos th,
-.tabla-turnos td {
-  border: 1px solid #eee;
-  padding: 10px;
   text-align: center;
 }
 
-.tabla-turnos th {
-  background: #ffebf0;
-  color: #ff6b8a;
-  font-weight: bold;
+h2 {
+  text-align: center;
+  margin-top: 30px;
+  font-size: 26px;
+  color: #222;
 }
 
-.tabla-turnos tr:nth-child(even) {
-  background: #fff5f8;
+/* LISTA DE TATUADORES */
+.tatuadores-lista {
+  display: flex;
+  justify-content: center;
+  gap: 25px;
+  flex-wrap: wrap;
+  margin: 20px 0 30px;
 }
 
-/* ---------------------------------------------
-                BOTONES DE LOS TATUADORES
---------------------------------------------- */
 .artist-card {
-  display: inline-block;
-  margin: 10px;
   text-align: center;
 }
 
-.artist-card button {
-  background: #ff6b8a;
+.artist-btn {
+  background: #ff6f8f;
   color: white;
+  padding: 12px 28px;
+  border: none;
+  border-radius: 12px;
+  font-size: 18px;
+  cursor: pointer;
+  transition: .2s;
+}
+
+.artist-btn:hover {
+  background: #ff5072;
+  transform: scale(1.05);
+}
+
+.artist-card.selected .artist-btn {
+  background: #ff2f5c;
+}
+
+/* ESTILOS */
+.estilos {
+  margin-top: 6px;
+  color: #666;
+  font-size: 15px;
+}
+
+/* FECHA */
+input[type="date"] {
+  display: block;
+  margin: 0 auto;
+  padding: 10px 14px;
+  font-size: 16px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  margin-bottom: 20px;
+}
+
+/* HORARIOS */
+.horarios-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.hora-btn {
+  padding: 12px 18px;
+  background: #eaeaea;
   border: none;
   border-radius: 10px;
-  font-size: 16px;      /* más grande */
-  padding: 12px 20px;   /* más grande */
   cursor: pointer;
-  transition: 0.2s;
-  font-weight: bold;
-  width: 140px;         /* ancho fijo */
+  transition: .2s;
 }
 
-.artist-card button:hover {
-  background: #ff4a72;
+.hora-btn:hover:not([disabled]) {
+  background: #ffd1dc;
 }
 
-/* Mostrar estilos del artista */
-.artist-card p {
-  margin-top: 5px;
-  font-size: 14px;
-  color: #333;
-}
-
-/* ---------------------------------------------
-                FECHAS Y HORARIOS
---------------------------------------------- */
-input[type="date"] {
-  padding: 8px 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  font-size: 14px;
-  margin-bottom: 15px;
-}
-
-button.horario {
-  background: #ff6b8a;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 10px 15px;
-  margin: 5px;
-  cursor: pointer;
-  font-weight: bold;
-  transition: 0.2s;
-}
-
-button.horario:hover {
-  background: #ff4a72;
-}
-
-button.horario:disabled {
-  background: #ffd3de;
+.hora-btn[disabled] {
+  background: #ccc;
   cursor: not-allowed;
 }
 
-/* ---------------------------------------------
-                RESPONSIVE
---------------------------------------------- */
-@media (max-width: 768px) {
-  .artist-card button {
-    width: 100%;
-    padding: 10px;
-    font-size: 15px;
-  }
+/* INFO TEXTO */
+.info {
+  text-align: center;
+  margin-top: 15px;
+  color: #777;
 }

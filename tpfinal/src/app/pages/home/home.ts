@@ -63,13 +63,13 @@ export class HomeComponent implements OnInit {
   console.log("USER:", user);
 
   if (!user) {
-    
-    this.router.navigate(['/login'], { queryParams: { redirectTo: 'turnos' } });
-    return;
+    console.log("NO LOGUEADO → IR A LOGIN");
+    this.router.navigate(['/login']);
+    return;   // 🔥 IMPORTANTE: si no ponés return, sigue hacia turnos
   }
 
-  
+  console.log("LOGUEADO → IR A TURNOS");
   this.router.navigate(['/turnos']);
 }
-  
+
 }

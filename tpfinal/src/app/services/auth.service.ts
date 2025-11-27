@@ -8,59 +8,49 @@ export class AuthService {
   private currentUser: User | null = null;
 
   constructor() {
-    this.cargarDesdeStorage();
+    this.cargarDesdeLocalStorage();
   }
 
-  
-  private cargarDesdeStorage() {
-    const saved = localStorage.getItem(this.storageKey);
-    if (!saved) {
+  // 🚀 Carga usuario guardado cuando se inicia Angular
+  private cargarDesdeLocalStorage() {
+    const data = localStorage.getItem(this.storageKey);
+    if (!data) {
       this.currentUser = null;
       return;
     }
 
     try {
-      this.currentUser = JSON.parse(saved) as User;
-    } catch (e) {
-      console.warn("Error cargando usuario desde storage", e);
-      localStorage.removeItem(this.storageKey);
+      this.currentUser = JSON.parse(data) as User;
+    } catch {
+      console.warn("Error parseando user en localStorage");
       this.currentUser = null;
+      localStorage.removeItem(this.storageKey);
     }
   }
 
- 
+  // 🔍 Devuelve el usuario logueado
   getUser(): User | null {
     return this.currentUser;
   }
 
-  
-  private guardarUsuario(user: User | null) {
+  // 💾 Guarda usuario en memoria + localStorage
+  private guardarUsuario(user: User) {
     this.currentUser = user;
-
-    if (user) {
-      localStorage.setItem(this.storageKey, JSON.stringify(user));
-    } else {
-      localStorage.removeItem(this.storageKey);
-    }
+    localStorage.setItem(this.storageKey, JSON.stringify(user));
   }
 
-  
+  // 🔐 Login
   login(user: User): boolean {
-    if (!user || !user.role) {
-      console.error("Login fallido: usuario inválido");
-      return false;
-    }
+    if (!user) return false;
 
     this.guardarUsuario(user);
     return true;
   }
 
- 
-  logout(): boolean {
-    if (!this.currentUser) return false;
-
-    this.guardarUsuario(null);
-    return true;
+  // 🔓 Logout
+  logout() {
+    this.currentUser = null;
+    localStorage.removeItem(this.storageKey);
   }
 
   // Roles
@@ -74,9 +64,5 @@ export class AuthService {
 
   isClient(): boolean {
     return this.currentUser?.role === 'client';
-  }
-
-  isLoggedIn(): boolean {
-    return this.currentUser !== null;
   }
 }

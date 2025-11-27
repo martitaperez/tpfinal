@@ -1,37 +1,50 @@
-<h2>Gestión de Turnos</h2>
-<p>Aquí se mostrarán los turnos disponibles / reservados.</p>
 
-<h2>Seleccioná un tatuador</h2>
+<div class="turnos-container">
 
-@for (artist of artists; track artist.id) {
-  <div class="artist-card"
-       [class.selected]="artistSeleccionado?.id === artist.id">
+  <h2>Seleccioná un tatuador</h2>
 
-    <button (click)="seleccionarTatuador(artist)">
-      {{ artist.name }}
-    </button>
+  <section class="tatuadores-lista">
+    @for (artist of artists; track artist.id) {
+      <div class="artist-card"
+          [class.selected]="artistSeleccionado?.id === artist.id">
 
-    <p>Estilos: {{ artist.styles.join(', ') }}</p>
-  </div>
-}
+        <button class="artist-btn" (click)="seleccionarTatuador(artist)">
+          {{ artist.name }}
+        </button>
 
-<h2>Seleccioná una fecha</h2>
-<input
-  type="date"
-  [(ngModel)]="fechaSeleccionada"
-  (ngModelChange)="onFechaChange()"
-  [min]="hoy"
-/>
+        <p class="estilos">
+          Estilos: {{ artist.styles.join(', ') }}
+        </p>
 
-@if (artistSeleccionado && fechaSeleccionada) {
-  <h3>Horarios disponibles</h3>
-  <div class="horarios-grid">
-    <button *ngFor="let horario of horarios"
-            [disabled]="horariosOcupados.includes(horario.start)"
-            (click)="reservarTurno(horario)">
-      {{ horario.start }} - {{ horario.end }}
-    </button>
-  </div>
-} @else {
-  <p>Seleccioná un tatuador y una fecha para ver los horarios</p>
-}
+      </div>
+    }
+  </section>
+
+  <h2>Seleccioná una fecha</h2>
+
+  <input type="date"
+        [(ngModel)]="fechaSeleccionada"
+        (ngModelChange)="onFechaChange()"
+        [min]="hoy" />
+
+  @if (artistSeleccionado && fechaSeleccionada) {
+
+    <h3>Horarios disponibles</h3>
+
+    <div class="horarios-grid">
+      @for (horario of horarios; track horario.start) {
+        <button class="hora-btn"
+                (click)="reservarTurno(horario)"
+                [disabled]="horariosOcupados.includes(horario.start)">
+          {{ horario.start }} - {{ horario.end }}
+        </button>
+      }
+    </div>
+
+  } @else {
+    <p class="info">
+      Seleccioná un tatuador y una fecha para ver los horarios.
+    </p>
+  }
+
+</div>
