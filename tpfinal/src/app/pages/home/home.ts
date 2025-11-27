@@ -14,7 +14,12 @@ import { Artist } from '../../models/artist.model';
 export class HomeComponent implements OnInit {
 
   artistas: Artist[] = [];
+  
+  // 🔥 Tus variables reales:
   artistaSeleccionada: Artist | null = null;
+
+  // 🔥 Variable para el modal principal:
+  modalAbierto = false;
 
   constructor(
     private artistService: ArtistService,
@@ -27,14 +32,28 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  // 🔥 Abrir lista de tatuadoras (primer modal)
+  abrirTatuadoras() {
+    this.modalAbierto = true;
+  }
+
+  // 🔥 Cerrar lista de tatuadoras
+  cerrarTatuadoras() {
+    this.modalAbierto = false;
+    this.artistaSeleccionada = null; // Cierra también el detalle
+  }
+
+  // 🔥 Abrir detalle de una tatuadora
   verMas(artist: Artist) {
     this.artistaSeleccionada = artist;
   }
 
+  // 🔥 Cerrar detalle de tatuadora
   cerrarDetalle() {
     this.artistaSeleccionada = null;
   }
 
+  // 🔥 Redireccionar a turnos
   irAReservar() {
     this.router.navigate(['/turnos']);
   }

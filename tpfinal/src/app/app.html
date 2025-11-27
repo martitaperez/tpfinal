@@ -1,10 +1,83 @@
-<nav>
-  <a routerLink="/home">Home</a>
-  <a routerLink="/tatuadoras">Tatuadoras</a>
-  <a routerLink="/turnos">Turnos</a>
-  <a routerLink="/admin">Admin</a>
+<nav class="navbar">
+  <div class="nav-container">
+
+    <!-- LOGO -->
+    <div class="nav-logo" routerLink="/home">
+      InkStudio
+    </div>
+
+    <!-- HAMBURGUESA -->
+    <button class="hamburger" (click)="menuAbierto = !menuAbierto">
+      ☰
+    </button>
+
+    <!-- LINKS -->
+    <div class="nav-links" [class.open]="menuAbierto">
+
+      <a routerLink="/home" routerLinkActive="active" (click)="cerrarMenu()">
+        Inicio
+      </a>
+
+      <!-- Cliente -->
+      <a routerLink="/turnos"
+         routerLinkActive="active"
+         *ngIf="isClient()"
+         (click)="cerrarMenu()">
+        Turnos
+      </a>
+
+      <!-- Artista -->
+      <a routerLink="/tatuadoras"
+         routerLinkActive="active"
+         *ngIf="isArtist()"
+         (click)="cerrarMenu()">
+        Mis turnos
+      </a>
+
+      <!-- Admin -->
+      <a routerLink="/admin"
+         routerLinkActive="active"
+         *ngIf="isAdmin()"
+         (click)="cerrarMenu()">
+        Admin
+      </a>
+
+      <!-- Perfil -->
+      <a routerLink="/perfil"
+         routerLinkActive="active"
+         *ngIf="isLoggedIn()"
+         (click)="cerrarMenu()">
+        Perfil
+      </a>
+
+      <!-- Login / Registro -->
+      <a routerLink="/login"
+         routerLinkActive="active"
+         *ngIf="!isLoggedIn()"
+         (click)="cerrarMenu()">
+        Login
+      </a>
+
+      <a routerLink="/register"
+         routerLinkActive="active"
+         *ngIf="!isLoggedIn()"
+         (click)="cerrarMenu()">
+        Registrarse
+      </a>
+
+      <!-- Usuario conectado -->
+      <span class="usuario" *ngIf="isLoggedIn()">
+        {{ user?.name }} ({{ user?.role }})
+      </span>
+
+      <!-- Logout -->
+      <button class="logout" *ngIf="isLoggedIn()" (click)="logout()">
+        Cerrar sesión
+      </button>
+
+    </div>
+  </div>
 </nav>
 
-<hr>
-
+<!-- donde se muestran las páginas -->
 <router-outlet></router-outlet>

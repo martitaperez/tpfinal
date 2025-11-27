@@ -1,57 +1,79 @@
-<h2>Nuestras Tatuadoras</h2>
+<!-- HERO: Bienvenida -->
+<section class="hero">
+  <div class="hero-content">
+    <h1>Bienvenidos a nuestro estudio</h1>
+    <p>Arte, dedicación y tatuajes únicos.</p>
 
-<section class="lista-tatuadoras">
-
-  @for (t of artistas; track t.id) {
-
-    <div class="card" (click)="verMas(t)">
-      <img src="{{ t.photo || 'assets/no-photo.png' }}" class="foto">
-
-      <h3>{{ t.name }}</h3>
-
-      <p class="estilos">
-        @for (s of t.styles; track $index) {
-          <span class="tag">{{ s }}</span>
-        }
-      </p>
-
-      <button (click)="verMas(t); $event.stopPropagation();">
-        Ver más
-      </button>
-    </div>
-
-  }
-
+    <button (click)="abrirTatuadoras()">Ver nuestras tatuadoras</button>
+  </div>
 </section>
 
 
-<!-- PANEL DE DETALLE -->
+<!-- MODAL PRINCIPAL (lista de tatuadoras) -->
+@if (modalAbierto) {
+  <div class="overlay">
+
+    <div class="modal">
+      <button class="cerrar" (click)="cerrarTatuadoras()">×</button>
+
+      <h2>Nuestras Tatuadoras</h2>
+
+      <section class="lista-tatuadoras">
+        @for (t of artistas; track t.id) {
+
+          <div class="card" (click)="verMas(t)">
+            <img src="{{ t.photo || 'assets/no-photo.png' }}" class="foto">
+
+            <h3>{{ t.name }}</h3>
+
+            <p class="estilos">
+              @for (s of t.styles; track $index) {
+                <span class="tag">{{ s }}</span>
+              }
+            </p>
+
+            <button (click)="verMas(t); $event.stopPropagation();">
+              Ver más
+            </button>
+          </div>
+
+        }
+      </section>
+    </div>
+
+  </div>
+}
+
+
+<!-- PANEL DE DETALLE (modal secundario) -->
 @if (artistaSeleccionada) {
 
-  <section class="detalle">
+  <div class="overlay perfil">
 
-    <button class="cerrar" (click)="cerrarDetalle()">×</button>
+    <section class="modal detalle">
+      <button class="cerrar" (click)="cerrarDetalle()">×</button>
 
-    <img src="{{ artistaSeleccionada.photo || 'assets/no-photo.png' }}" class="foto-grande">
+      <img src="{{ artistaSeleccionada.photo || 'assets/no-photo.png' }}" class="foto-grande">
 
-    <h2>{{ artistaSeleccionada.name }}</h2>
+      <h2>{{ artistaSeleccionada.name }}</h2>
 
-    <p><strong>Instagram:</strong> {{ artistaSeleccionada.ig }}</p>
+      <p><strong>Instagram:</strong> {{ artistaSeleccionada.ig }}</p>
 
-    <h3>Bio</h3>
-    <p>{{ artistaSeleccionada.bio }}</p>
+      <h3>Bio</h3>
+      <p>{{ artistaSeleccionada.bio }}</p>
 
-    <h3>Estilos</h3>
-    @for (s of artistaSeleccionada.styles; track $index) {
-      <span class="tag grande">{{ s }}</span>
-    }
+      <h3>Estilos</h3>
+      @for (s of artistaSeleccionada.styles; track $index) {
+        <span class="tag grande">{{ s }}</span>
+      }
 
-    <br><br>
+      <br><br>
 
-    <button class="reservar-btn" (click)="irAReservar()">
-      Reservar turno
-    </button>
+      <button class="reservar-btn" (click)="irAReservar()">
+        Reservar turno
+      </button>
+    </section>
 
-  </section>
+  </div>
 
 }

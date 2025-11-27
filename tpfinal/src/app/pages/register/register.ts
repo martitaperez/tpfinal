@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { ApiService } from '../../services/api.service';
 import { AuthService } from '../../services/auth.service';
@@ -9,7 +10,7 @@ import { User } from '../../models/user.model';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './register.html',
   styleUrls: ['./register.css']
 })
