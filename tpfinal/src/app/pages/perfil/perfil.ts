@@ -1,74 +1,61 @@
 import { Component, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { ActivatedRoute } from '@angular/router';
+import { UserService } from '../../services/user.service';
+import { ArtistService } from '../../services/artist.service';
+import { TurnosService } from '../../services/turnos.service';
 import { User } from '../../models/user.model';
-import { ApiService } from '../../services/api.service';
-import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router';
+import { Artist } from '../../models/artist.model';
+import { Reserva } from '../../models/reserva.model';
 
 @Component({
   selector: 'app-perfil',
   standalone: true,
-  imports: [FormsModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './perfil.html',
   styleUrls: ['./perfil.css']
 })
 export class PerfilComponent implements OnInit {
+  tipo: 'admin' | 'artist' | 'turno' = 'admin';
+  id!: number;
 
-  user: User = {
-    id: 0,
-    name: '',
-    email: '',
-    password: '',
-    role: 'client'
-  };
-
-  mensaje: string | null = null;     
-  esArtista = false;
+  user: User | null = null;
+  artist: Artist | null = null;
+  reserva: Reserva | null = null;
 
   constructor(
-    private api: ApiService,
-    private auth: AuthService,
-    private router: Router
+    private route: ActivatedRoute,
+    private userService: UserService,
+    private artistService: ArtistService,
+    private turnosService: TurnosService
   ) {}
 
   ngOnInit(): void {
-    const u = this.auth.getUser();
-    if (u) {
-      this.user = { ...u };
-      this.esArtista = u.role === 'artist';
-    }
-  }
-
-  
-  mostrarMensaje(texto: string) {
-    this.mensaje = texto;
-    setTimeout(() => this.mensaje = null, 3000);
-  }
-
-  guardarCambios(): void {
-    if (!this.user.id) return;
-
-    const patch: Partial<User> = {
-      name: this.user.name,
-      apellido: this.user.apellido,
-      email: this.user.email,
-      phone: this.user.phone,
-      password: this.user.password
-    };
-
-    this.api.updateUsuario(this.user.id, patch).subscribe({
-      next: () => {
-        this.auth.login(this.user); // refresca localStorage
-        this.mostrarMensaje("Datos guardados correctamente.");  
-      },
-      error: () => {
-        this.mostrarMensaje("No se pudieron guardar los cambios.");  
-      }
+    this.route.queryParams.subscribe((params: any) => {
+      this.tipo = params['tipo'];
+      this.id = +params['id'];
+      this.cargarDatos();
     });
   }
 
-  irPerfilTatuadora(): void {
-    this.router.navigate(['/perfil-tatuadora']);
+  cargarDatos() {
+    if (this.tipo === 'admin') {
+      this.userService.getById(this.id).subscribe(u => this.user = u);
+    } else if (this.tipo === 'artist') {
+      this.artistService.getById(this.id).subscribe(a => this.artist = a);
+    } else if (this.tipo === 'turno') {
+      this.turnosService.getById(this.id).subscribe(r => this.reserva = r);
+    }
+  }
+
+  guardarCambios() {
+    if (this.tipo === 'admin' && this.user) {
+      this.userService.updateUser(this.user.id, this.user).subscribe(() => alert('Admin actualizado'));
+    } else if (this.tipo === 'artist' && this.artist) {
+      this.artistService.updateArtist(this.artist.id, this.artist).subscribe(() => alert('Artista actualizado'));
+    } else if (this.tipo === 'turno' && this.reserva) {
+      this.turnosService.updateReserva(this.reserva.id, this.reserva).subscribe(() => alert('Turno actualizado'));
+    }
   }
 }

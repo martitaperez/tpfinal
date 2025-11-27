@@ -14,11 +14,6 @@ import { Artist } from '../../models/artist.model';
 })
 export class TurnosComponent implements OnInit {
 
-  // ===== CONFIGURACIÓN DE TURNOS =====
-  private readonly HORA_INICIO = 8;
-  private readonly HORA_FIN = 17;
-  private readonly DURACION_TURNO_MIN = 90;
-
   artists: Artist[] = [];
   reservas: Reserva[] = [];
   horarios: { start: string; end: string }[] = [];
@@ -38,13 +33,13 @@ export class TurnosComponent implements OnInit {
   ngOnInit(): void {
     this.hoy = this.formatearFecha(new Date());
 
-    // cargar usuario real
     const saved = localStorage.getItem('user');
     if (saved) {
       this.usuarioActual = JSON.parse(saved);
     }
 
     this.cargarArtists();
+    this.cargarReservasUsuario();
   }
 
   formatearFecha(fecha: Date): string {
@@ -59,9 +54,30 @@ export class TurnosComponent implements OnInit {
       .subscribe(data => this.artists = data);
   }
 
+  cargarReservasUsuario() {
+    this.http.get<Reserva[]>(this.TurnosUrl)
+      .subscribe(data => {
+        if (this.usuarioActual) {
+          this.reservas = data.filter(r => r.clientId === Number(this.usuarioActual.id));
+        } else {
+          this.reservas = [];
+        }
+      });
+  }
+
+  eliminarReserva(id: number) {
+    if (!confirm('¿Eliminar reserva?')) return;
+    this.http.delete(`${this.TurnosUrl}/${id}`)
+      .subscribe(() => {
+        this.reservas = this.reservas.filter(r => r.id !== id);
+        if (this.artistSeleccionado && this.fechaSeleccionada) {
+          this.cargarReservas(this.artistSeleccionado.id, this.fechaSeleccionada);
+        }
+      });
+  }
+
   seleccionarTatuador(artist: Artist) {
     this.artistSeleccionado = artist;
-
     if (this.fechaSeleccionada) {
       this.cargarReservas(artist.id, this.fechaSeleccionada);
     }
@@ -75,20 +91,18 @@ export class TurnosComponent implements OnInit {
 
   generarHorarios(): { start: string; end: string }[] {
     const horarios: { start: string; end: string }[] = [];
-
-    let hora = this.HORA_INICIO;
+    let hora = 8;
     let minutos = 0;
 
     const ahora = new Date();
     const esHoy = this.fechaSeleccionada === this.formatearFecha(ahora);
 
-    while (hora < this.HORA_FIN) {
+    while (hora < 17) {
       const startH = hora.toString().padStart(2, '0');
       const startM = minutos.toString().padStart(2, '0');
 
       let endHora = hora;
-      let endMin = minutos + this.DURACION_TURNO_MIN;
-
+      let endMin = minutos + 90;
       if (endMin >= 60) {
         endHora += Math.floor(endMin / 60);
         endMin = endMin % 60;
@@ -98,16 +112,11 @@ export class TurnosComponent implements OnInit {
       const endM = endMin.toString().padStart(2, '0');
 
       const horario = { start: `${startH}:${startM}`, end: `${endH}:${endM}` };
-
-      if (
-        !esHoy ||
-        hora > ahora.getHours() ||
-        (hora === ahora.getHours() && minutos > ahora.getMinutes())
-      ) {
+      if (!esHoy || hora > ahora.getHours() || (hora === ahora.getHours() && minutos > ahora.getMinutes())) {
         horarios.push(horario);
       }
 
-      minutos += this.DURACION_TURNO_MIN;
+      minutos += 90;
       if (minutos >= 60) {
         hora += Math.floor(minutos / 60);
         minutos = minutos % 60;
@@ -120,10 +129,7 @@ export class TurnosComponent implements OnInit {
   cargarReservas(artistId: number, fecha: string) {
     this.http.get<Reserva[]>(this.TurnosUrl)
       .subscribe(data => {
-        this.reservas = data;
-        const reservasDelDia = this.reservas.filter(
-          r => r.artistId === artistId && r.date === fecha
-        );
+        const reservasDelDia = data.filter(r => r.artistId === artistId && r.date === fecha);
         this.horariosOcupados = reservasDelDia.map(r => r.startTime);
         this.horarios = this.generarHorarios();
       });
@@ -149,7 +155,11 @@ export class TurnosComponent implements OnInit {
     this.http.post(this.TurnosUrl, nuevaReserva)
       .subscribe(() => {
         alert('Reserva creada!');
+        this.cargarReservasUsuario();
         this.cargarReservas(this.artistSeleccionado.id, this.fechaSeleccionada);
       });
   }
 }
+
+
+

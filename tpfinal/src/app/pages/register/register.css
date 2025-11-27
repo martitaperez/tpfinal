@@ -1,0 +1,108 @@
+/* ---------------------------------------------
+              PAGINA COMPLETA
+--------------------------------------------- */
+.register-page {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh; /* ocupa toda la pantalla */
+  background: white; 
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* ---------------------------------------------
+                CONTENEDOR DEL FORM
+--------------------------------------------- */
+.register-container {
+  width: 100%;
+  max-width: 400px; 
+  background: white;
+  padding: 30px 25px;
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+  text-align: center;
+}
+
+/* ---------------------------------------------
+                TÍTULO
+--------------------------------------------- */
+.register-container h2 {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 25px;
+  color: black; /* antes estaba rosa (#ff6b8a), ahora negro */
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* ---------------------------------------------
+                INPUTS
+--------------------------------------------- */
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  margin-bottom: 15px;
+  border-radius: 10px;
+  border: 1px solid #ddd;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: 0.2s;
+}
+
+input:focus {
+  border-color: #ff6b8a;
+  outline: none;
+  box-shadow: 0 0 8px rgba(255,107,138,0.4);
+}
+
+/* ---------------------------------------------
+                BOTÓN
+--------------------------------------------- */
+button[type="submit"] {
+  background: #ff6b8a;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 10px;
+  font-size: 18px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: 0.2s;
+}
+
+button:hover {
+  background: #ff4a72;
+}
+
+/* ---------------------------------------------
+                MENSAJE DE ERROR
+--------------------------------------------- */
+p {
+  color: #ff4b72;
+  font-size: 14px;
+  margin-top: 12px;
+}
+
+/* ---------------------------------------------
+                RESPONSIVE
+--------------------------------------------- */
+@media (max-width: 500px) {
+  .register-container {
+    padding: 25px 15px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"] {
+    font-size: 14px;
+    padding: 10px 12px;
+  }
+
+  button[type="submit"] {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+}

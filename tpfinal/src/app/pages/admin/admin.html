@@ -1,30 +1,139 @@
-<h2>Panel de Administración</h2>
-<p>Aquí el administrador verá estadísticas, turnos y personal.</p>
+<div class="admin-container">
+  <h1>Panel Admin</h1>
 
+  <div class="top-actions">
+    <button class="btn primary" (click)="openAdminProfile()">Ver / Editar mi perfil</button>
 
+    <button class="btn secondary" (click)="toggleTurnos()">
+      {{ showTurnos ? 'Ocultar Turnos' : 'Turnos' }}
+    </button>
 
-<div *ngIf="loading">Cargando datos...</div>
+    <button class="btn secondary" (click)="toggleArtists()">
+      {{ showArtists ? 'Ocultar Tatuadoras' : 'Tatuadoras' }}
+    </button>
+  </div>
 
-<table *ngIf="!loading">
-  <tr>
-    <th>ID</th>
-    <th>Tatuador</th>
-    <th>Fecha</th>
-    <th>Horario</th>
-    <th>Cliente</th>
-    <th>Estado</th>
-    <th>Acciones</th>
-  </tr>
+  <p class="small-note" *ngIf="loading">Cargando datos...</p>
+  <p class="msg" *ngIf="msg">{{ msg }}</p>
 
-  <tr *ngFor="let r of reservas">
-    <td>{{ r.id }}</td>
-    <td>{{ getArtistName(r.artistId) }}</td>
-    <td>{{ r.date }}</td>
-    <td>{{ r.startTime }} - {{ r.endTime }}</td>
-    <td>{{ r.clientId }}</td>
-    <td>{{ r.status }}</td>
-    <td>
-      <button class="delete-btn" (click)="borrarTurno(r.id)">Eliminar</button>
-    </td>
-  </tr>
-</table>
+  <!-- TURNOS -->
+  <section *ngIf="showTurnos" class="card">
+    <h2>Turnos</h2>
+    <table class="tabla">
+      <thead>
+        <tr>
+          <th>ID</th><th>Fecha</th><th>Inicio</th><th>Fin</th><th>Cliente</th><th>Artista</th><th>Estado</th><th>Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let r of reservas">
+          <td>{{ r.id }}</td>
+
+          <td *ngIf="editingReservaId !== r.id">{{ r.date }}</td>
+          <td *ngIf="editingReservaId === r.id">
+            <input [(ngModel)]="reservaDraft!.date" name="date_{{r.id}}" />
+          </td>
+
+          <td *ngIf="editingReservaId !== r.id">{{ r.startTime }}</td>
+          <td *ngIf="editingReservaId === r.id">
+            <input [(ngModel)]="reservaDraft!.startTime" name="start_{{r.id}}" />
+          </td>
+
+          <td *ngIf="editingReservaId !== r.id">{{ r.endTime }}</td>
+          <td *ngIf="editingReservaId === r.id">
+            <input [(ngModel)]="reservaDraft!.endTime" name="end_{{r.id}}" />
+          </td>
+
+          <td *ngIf="editingReservaId !== r.id">{{ r.clientId }}</td>
+          <td *ngIf="editingReservaId === r.id">
+            <input [(ngModel)]="reservaDraft!.clientId" name="client_{{r.id}}" />
+          </td>
+
+          <td *ngIf="editingReservaId !== r.id">{{ getArtistName(r.artistId) }}</td>
+          <td *ngIf="editingReservaId === r.id">
+            <input [(ngModel)]="reservaDraft!.artistId" name="artist_{{r.id}}" />
+          </td>
+
+          <td *ngIf="editingReservaId !== r.id">{{ r.status }}</td>
+          <td *ngIf="editingReservaId === r.id">
+            <input [(ngModel)]="reservaDraft!.status" name="status_{{r.id}}" />
+          </td>
+
+          <td class="actions">
+            <ng-container *ngIf="editingReservaId !== r.id">
+              <button class="btn small" (click)="editReserva(r)">Editar</button>
+              <button class="btn danger small" (click)="borrarTurno(r.id)">Eliminar</button>
+            </ng-container>
+
+            <ng-container *ngIf="editingReservaId === r.id">
+              <button class="btn success small" (click)="saveReserva()">Guardar</button>
+              <button class="btn small" (click)="cancelEditReserva()">Cancelar</button>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- ARTISTAS -->
+  <section *ngIf="showArtists" class="card">
+    <h2>Tatuadoras</h2>
+    <table class="tabla">
+      <thead>
+        <tr><th>ID</th><th>Nombre</th><th>IG</th><th>Rating</th><th>Estilos</th><th>Acciones</th></tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let a of artists">
+          <td>{{ a.id }}</td>
+
+          <td *ngIf="editingArtistId !== a.id">{{ a.name }}</td>
+          <td *ngIf="editingArtistId === a.id">
+            <input [(ngModel)]="artistDraft!.name" name="a_name_{{a.id}}" />
+          </td>
+
+          <td *ngIf="editingArtistId !== a.id">{{ a.ig }}</td>
+          <td *ngIf="editingArtistId === a.id">
+            <input [(ngModel)]="artistDraft!.ig" name="a_ig_{{a.id}}" />
+          </td>
+
+          <td *ngIf="editingArtistId !== a.id">{{ a.rating }}</td>
+          <td *ngIf="editingArtistId === a.id">
+            <input type="number" step="0.1" [(ngModel)]="artistDraft!.rating" name="a_rating_{{a.id}}" />
+          </td>
+
+          <td *ngIf="editingArtistId !== a.id">{{ (a.styles || []).join(', ') }}</td>
+          <td *ngIf="editingArtistId === a.id">
+            <input [(ngModel)]="artistDraft!.styles" name="a_styles_{{a.id}}" />
+          </td>
+
+          <td class="actions">
+            <ng-container *ngIf="editingArtistId !== a.id">
+              <button class="btn small" (click)="editArtist(a)">Editar</button>
+              <button class="btn danger small" (click)="deleteArtist(a.id)">Eliminar</button>
+            </ng-container>
+
+            <ng-container *ngIf="editingArtistId === a.id">
+              <button class="btn success small" (click)="saveArtist()">Guardar</button>
+              <button class="btn small" (click)="cancelEditArtist()">Cancelar</button>
+            </ng-container>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- Agregar nueva -->
+    <div class="add-card">
+      <h3>Agregar nueva tatuadora</h3>
+      <div class="grid">
+        <input placeholder="Nombre" [(ngModel)]="newArtist.name" />
+        <input placeholder="IG" [(ngModel)]="newArtist.ig" />
+        <input placeholder="Rating (0-5)" type="number" [(ngModel)]="newArtist.rating" />
+        <input placeholder="Estilos (coma separados)" [(ngModel)]="newArtistStyles" />
+        <input placeholder="Photo URL" [(ngModel)]="newArtist.photo" />
+      </div>
+      <div class="actions">
+        <button class="btn success" (click)="addArtist()">Agregar tatuadora</button>
+      </div>
+    </div>
+  </section>
+</div>

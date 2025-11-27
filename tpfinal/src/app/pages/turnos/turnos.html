@@ -1,38 +1,54 @@
-<h2>Gestión de Turnos</h2>
-<p>Aquí se mostrarán los turnos disponibles / reservados.</p>
+<div class="turnos-container">
 
-<h2>Seleccioná un tatuador</h2>
+  <h2>Mis Turnos</h2>
+  <table class="tabla-turnos" *ngIf="reservas.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Tatuador</th>
+        <th>Fecha</th>
+        <th>Inicio</th>
+        <th>Fin</th>
+        <th>Estado</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let r of reservas">
+        <td>{{ r.id }}</td>
+        
+        <td>{{ r.date }}</td>
+        <td>{{ r.startTime }}</td>
+        <td>{{ r.endTime }}</td>
+        <td>{{ r.status }}</td>
+        <td>
+          <button class="btn danger" (click)="eliminarReserva(r.id)">Eliminar</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <p *ngIf="reservas.length === 0">No tenés turnos reservados.</p>
 
-@for (artist of artists; track artist.id) {
-  <div class="artist-card"
-       [class.selected]="artistSeleccionado?.id === artist.id">
-    
-    <button (click)="seleccionarTatuador(artist)">
-      {{ artist.name }}
-    </button>
+  <hr>
 
-    <p>Estilos: {{ artist.styles.join(', ') }}</p>
+  <h2>Reservar Nuevo Turno</h2>
+  <div class="artists-grid">
+    <div *ngFor="let artist of artists" class="artist-card" [class.selected]="artistSeleccionado?.id === artist.id">
+      <button (click)="seleccionarTatuador(artist)">{{ artist.name }}</button>
+      <p>Estilos: {{ artist.styles.join(', ') }}</p>
+    </div>
   </div>
-}
 
-<h2>Seleccioná una fecha</h2>
-<input
-  type="date"
-  [(ngModel)]="fechaSeleccionada"
-  (ngModelChange)="onFechaChange()"
-  [min]="hoy"
->
+  <h3>Seleccioná una fecha</h3>
+  <input type="date" [(ngModel)]="fechaSeleccionada" (ngModelChange)="onFechaChange()" [min]="hoy">
 
-<h2>Horarios disponibles</h2>
-
-@if (horarios.length > 0) {
-  @for (horario of horarios; track horario.start) {
-    <button 
-      [disabled]="horariosOcupados.includes(horario.start)"
-      (click)="reservarTurno(horario)">
+  <h3>Horarios disponibles</h3>
+  <div class="horarios-grid">
+    <button *ngFor="let horario of horarios"
+            [disabled]="horariosOcupados.includes(horario.start)"
+            (click)="reservarTurno(horario)">
       {{ horario.start }} - {{ horario.end }}
     </button>
-  }
-} @else {
-  <p>Seleccioná un tatuador y una fecha para ver los horarios</p>
-}
+  </div>
+
+</div>
