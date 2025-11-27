@@ -27,8 +27,8 @@
     },
     {
       "id": "4",
-      "name": "Rodri tattoo Demo",
-      "email": "rodri@studio.com",
+      "name": "Anto tattoo Demo",
+      "email": "anto@studio.com",
       "password": "artist123",
       "role": "artist",
       "phone": "45678999"
@@ -60,20 +60,20 @@
       "rating": 4.8,
       "ig": "@ana.ink",
       "bio": "Especialista en realismo y blackwork",
-      "photo": ""
+      "photo": "/assets/ana.jpg"
     },
     {
       "id": "2",
       "userId": 4,
-      "name": "Rodri",
+      "name": "Anto",
       "styles": [
         "blackwork",
         "acuarela"
       ],
       "rating": 4.8,
-      "ig": "@rodri.tattoo",
+      "ig": "@anto.tattoo",
       "bio": "Especialista en blackwork y acuarela",
-      "photo": ""
+      "photo": "/assets/anto.jpg"
     }
   ],
   "turnos": [

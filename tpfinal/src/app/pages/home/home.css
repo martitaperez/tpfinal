@@ -1,0 +1,98 @@
+.lista-tatuadoras {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.card {
+  width: 230px;
+  background: #fff;
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.card:hover {
+  transform: scale(1.03);
+}
+
+.foto {
+  width: 100%;
+  height: 140px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+
+.estilos .tag {
+  background: #ffe0e6;
+  padding: 4px 8px;
+  border-radius: 10px;
+  margin-right: 5px;
+}
+
+.card button {
+  margin-top: 10px;
+  background: #ff6b8a;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  width: 100%;
+}
+
+.card button:hover {
+  background: #ff5074;
+}
+
+
+/* DETALLE */
+
+.detalle {
+  margin-top: 40px;
+  background: #fff;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  position: relative;
+}
+
+.cerrar {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  background: transparent;
+  border: none;
+  font-size: 28px;
+  cursor: pointer;
+}
+
+.foto-grande {
+  width: 200px;
+  height: 200px;
+  border-radius: 14px;
+  object-fit: cover;
+  display: block;
+  margin: 0 auto 15px auto;
+}
+
+.tag.grande {
+  padding: 6px 12px;
+  font-size: 14px;
+}
+
+.reservar-btn {
+  background: #ff6b8a;
+  padding: 12px 20px;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.reservar-btn:hover {
+  background: #ff5074;
+}
